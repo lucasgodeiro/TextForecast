@@ -27,3 +27,5 @@ Imports:
     wordcloud,
     dplyr,
     plyr
+URL: https://github.com/lucasgodeiro/TextForecast
+BugReports: https://github.com/lucasgodeiro/TextForecast/issues
