@@ -73,7 +73,7 @@
 #' get_words function
 #'
 #' @param corpus_dates A vector of characters indicating the subfolders where are located the texts.
-#' @param ntrms maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, after we select the words with the ntrms highst tf-idf.
+#' @param ntrms maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.
 #' @param st set 0 to stem the words and 1 otherwise.
 #' @param path_name the folders path where the subfolders with the dates are located.
 #'

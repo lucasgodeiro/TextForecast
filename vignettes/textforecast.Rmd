@@ -1,0 +1,212 @@
+---
+title: "TextForecast R package documentation"
+author: 
+  - name          : "Luiz Renato Lima"
+    affiliation   : "Department of Economics, University of Tennessee, Knoxville, United States and Department of Economics, Federal University of Paraiba, Brazil."
+    email         : "llima@utk.edu"
+  - name          : "Lucas Godeiro"
+    affiliation   : "Department of Applied Social Sciences, Federal Rural University of the Semi-arid Region – UFERSA, Brazil."
+    email         : "lucasgodeiro@ufersa.edu.br"
+
+affiliation:
+  - id            : "1"
+    institution   : "Department of Economics, University of Tenessee, Knoxville, United States."
+  - id            : "2"
+    institution   : "Department of Economics, Federal University of Paraiba, Brazil."
+  - id            : "3"
+    institution   : "Department of Applied Social Sciences, Federal Rural University of the Semi-arid Region – UFERSA, Brazil."
+
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+
+  Enter author note here.
+
+
+date: "`r Sys.Date()`"
+bibliography: Bibliography.bib
+output: 
+  rmarkdown::html_vignette:
+    number_sections: true  
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{TextForecast R package documentation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>" , warning=FALSE
+)
+```
+
+This vignettes shows the functions and example of the **TextForecast** package. 
+
+# Installation
+
+You can install the released version of TextForecast from github with:
+
+``` r
+install.packages("devtools")
+library(devtools)
+devtools::install_github("lucasgodeiro/TextForecast")
+```
+
+
+# get_words function 
+
+This function counts the  words of the texts in the  PDF format.
+
+## Arguments 
+
+**corpus_dates:** A vector of characters indicating the subfolders where are located the texts.
+
+**ntrms:** maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.
+
+**st:** set 0 to stem the words and 1 otherwise.
+
+**path_name:** the folders path where the subfolders with the dates are located.
+
+## Value 
+
+a list containing  a matrix with the all words counting and another with a td-idf filtered words couting according to the ntrms.
+
+## Example
+
+This is a basic example which shows you how todo a word counting from PDF files. The PDF files contains monthly financial News from The Wall Street Journal and The New York Times between 2017 and 2018.
+
+```{r get words example}
+## Example from function get_words. 
+library(TextForecast)
+st_year=2017
+end_year=2018
+path_name=system.file("news",package="TextForecast")
+qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
+z_wrd=get_words(corpus_dates=qt[1:2],path_name=path_name,ntrms=10,st=0)
+zz=z_wrd[[2]]
+head(zz)
+```
+
+# get_collocations function 
+
+This function counts the  collocations of the texts in the  PDF format. The PDF files contains monthly financial News from The Wall Street Journal and The New York Times between 2017 and 2018.
+
+## Arguments 
+
+**corpus_dates:** a character vector indicating the subfolders where are located the texts.
+
+**path_name:** the folders path where the subfolders with the dates are located.
+
+**ntrms:** maximum numbers of collocations  that will be filtered by tf-idf. We rank the collocations by tf-idf in a decreasing order. Then, after we select the words with the ntrms highest tf-idf.
+
+**ngrams_number:** integer indicating the size of the collocations. Defaults to 2, indicating to compute bigrams. If set to 3, will find collocations of bigrams and trigrams.
+
+**min_freq:** integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.
+
+## Value 
+
+a list containing  a matrix with the all collocations counting and another with a td-idf filtered collocations couting according to the ntrms.
+
+## Example
+
+```{r get collocations example}
+library(TextForecast)
+st_year=2017
+end_year=2018
+path_name=system.file("news",package="TextForecast")
+qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
+z_coll=get_collocations(corpus_dates=qt[1:12],path_name=path_name,ntrms=20,ngrams_number=3,min_freq=10)
+zz=z_coll[[2]]
+head(zz)
+```
+
+# get_terms function 
+This function counts the  terms of the texts in the  PDF format.
+
+## Arguments 
+
+ **corpus_dates:** a character vector indicating the subfolders where are located the texts.
+
+**ntrms_words:** maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.
+
+ **st:** set 0 to stem the words and 1 otherwise.
+
+ **path.name:** the folders path where the subfolders with the dates are located.
+
+**ntrms_collocation:** maximum numbers of collocations  that will be filtered by tf-idf. We rank the collocations by tf-idf in a decreasing order. Then, after we select the words with the ntrms highest tf-idf.
+
+**ngrams_number:** integer indicating the size of the collocations. Defaults to 2, indicating to compute bigrams. If set to 3, will find collocations of bigrams and trigrams.
+
+**min_freq:** integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.
+
+##Value 
+a list containing  a matrix with the all collocations and words couting and another with a td-idf filtered collocations and words counting according to the ntrms.
+
+##Example 
+
+This function counts the  words and collocations of the texts in the  PDF format. The PDF files contains monthly financial News from The Wall Street Journal and The New York Times between 2017 and 2018.
+
+
+```{r get terms example}
+library(TextForecast)
+st_year=2017
+end_year=2018
+path_name=system.file("news",package="TextForecast")
+qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
+z_terms=get_terms(corpus_dates=qt[1:23],path.name=path_name,ntrms_words=10,ngrams_number=3,st=0,ntrms_collocation=10,min_freq=10)
+zz=z_terms[[2]]
+head(zz)
+```
+
+
+
+
+Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+
+- Never uses retina figures
+- Has a smaller default figure size
+- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+
+
+Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+
+# Styles
+
+The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+
+    output: 
+      rmarkdown::html_vignette:
+        css: mystyles.css
+
+# Figures
+
+The figure sizes have been customised so that you can easily put two images side-by-side. 
+
+```{r, fig.show='hold'}
+plot(1:10)
+plot(10:1)
+```
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+# More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 10))
+```
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))
+
+# References {-}

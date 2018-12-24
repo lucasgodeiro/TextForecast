@@ -9,7 +9,7 @@ get_words(corpus_dates, ntrms, st, path_name)
 \arguments{
 \item{corpus_dates}{A vector of characters indicating the subfolders where are located the texts.}
 
-\item{ntrms}{maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, after we select the words with the ntrms highst tf-idf.}
+\item{ntrms}{maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.}
 
 \item{st}{set 0 to stem the words and 1 otherwise.}
 
