@@ -10,13 +10,15 @@
 #' @param k the highest positive and negative coefficients to be used.
 #'
 #' @import glmnet
-#' @import dplyr
 #' @import ggplot2
 #' @import tidytext
 #' @import forcats
 #' @import tidytext
 #' @importFrom tibble data_frame
 #' @importFrom dplyr filter
+#' @importFrom dplyr group_by
+#' @importFrom dplyr ungroup
+#' @importFrom dplyr top_n
 #'
 #'
 #' @return The time-varying sentiment index. The index is based on the word/term counting and is computed using: tv_index=(pos-neg)/(pos+neg).

@@ -1,4 +1,6 @@
 
+[![Travis build status](https://travis-ci.com/lucasgodeiro/TextForecast.svg?branch=master)](https://travis-ci.com/lucasgodeiro/TextForecast)
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 TextForecast Package
 ====================
