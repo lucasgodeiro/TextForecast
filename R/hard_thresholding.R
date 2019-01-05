@@ -10,7 +10,7 @@
 #' @export
 #' @examples
 #' data("stock_data")
-#' data("optimal_factors_data")
+#' data("optimal_factors")
 #' y=as.matrix(stock_data[,2])
 #' y=as.vector(y)
 #' w=as.matrix(stock_data[,3])
