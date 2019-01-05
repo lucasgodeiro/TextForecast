@@ -32,7 +32,12 @@ Imports:
     lars,
     lsa,
     quantreg,
-    tau
+    tau,
+    RColorBrewer,
+    forcats,
+    ggplot2,
+    glmnet,
+    tibble
 URL: https://github.com/lucasgodeiro/TextForecast
 BugReports: https://github.com/lucasgodeiro/TextForecast/issues
 Suggests: 

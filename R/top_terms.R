@@ -1,7 +1,7 @@
 #' Top Terms Function
 #'
 #' @param x the input matrix of terms to be selected.
-#' @param w the input matrix of structured data to not be selected.
+#' @param w optional argument. the input matrix of structured data to not be selected.
 #' @param y the response variable
 #' @param alpha the glmnet alpha
 #' @param lambda the glmnet lambda
@@ -14,11 +14,15 @@
 #'
 #' @import wordcloud
 #' @import glmnet
+#' @import ggplot2
+#' @import RColorBrewer
+#' @importFrom RColorBrewer brewer.pal
 #'
 #' @return the top k terms and the corresponding wordcloud.
 #' @export
 #'
 #' @examples
+#' set.seed(1)
 #' data("stock_data")
 #' data("news_data")
 #' y=as.matrix(stock_data[,2])
@@ -28,8 +32,8 @@
 #' x=as.matrix(X)
 #' grid_alphas=seq(by=0.05,to=0.95,from=0.05)
 #' cont_folds=TRUE
-#' optimal_alphas=optimal_alphas(x,w,y,grid_alphas,TRUE,"gaussian")
 #' t=length(y)
+#' optimal_alphas=optimal_alphas(x[1:(t-1),],w[1:(t-1),],y[2:t],grid_alphas,TRUE,"gaussian")
 #' top_trms<- top_terms(x[1:(t-1),],w[1:(t-1),],y[2:t],optimal_alphas[[1]],optimal_alphas[[2]],10,TRUE,10,c(5,0.15),.15,"gaussian")
 #'
 top_terms <-function(x,w,y, alpha,lambda,k,wordcloud,max.words,scale,rot.per,family){
@@ -90,7 +94,7 @@ top_terms <-function(x,w,y, alpha,lambda,k,wordcloud,max.words,scale,rot.per,fam
       gg = which(II_rank==p)
       freqs[p]=betas_abs[gg]
     }
-    pal2 <- brewer.pal(8,"Dark2")
+    pal2 <- RColorBrewer::brewer.pal(8,"Dark2")
     wordcloud(top_coefs,freqs, colors = pal2,random.order=FALSE,
               max.words=max.words,rot.per = rot.per ,scale=scale )
   }

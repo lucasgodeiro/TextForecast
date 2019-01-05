@@ -10,7 +10,7 @@ top_terms(x, w, y, alpha, lambda, k, wordcloud, max.words, scale, rot.per,
 \arguments{
 \item{x}{the input matrix of terms to be selected.}
 
-\item{w}{the input matrix of structured data to not be selected.}
+\item{w}{optional argument. the input matrix of structured data to not be selected.}
 
 \item{y}{the response variable}
 
@@ -37,6 +37,7 @@ the top k terms and the corresponding wordcloud.
 Top Terms Function
 }
 \examples{
+set.seed(1)
 data("stock_data")
 data("news_data")
 y=as.matrix(stock_data[,2])
@@ -46,8 +47,8 @@ X=news_data[,2:ncol(news_data)]
 x=as.matrix(X)
 grid_alphas=seq(by=0.05,to=0.95,from=0.05)
 cont_folds=TRUE
-optimal_alphas=optimal_alphas(x,w,y,grid_alphas,TRUE,"gaussian")
 t=length(y)
+optimal_alphas=optimal_alphas(x[1:(t-1),],w[1:(t-1),],y[2:t],grid_alphas,TRUE,"gaussian")
 top_trms<- top_terms(x[1:(t-1),],w[1:(t-1),],y[2:t],optimal_alphas[[1]],optimal_alphas[[2]],10,TRUE,10,c(5,0.15),.15,"gaussian")
 
 }

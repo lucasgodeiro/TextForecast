@@ -8,41 +8,30 @@ author:
     affiliation   : "Department of Applied Social Sciences, Federal Rural University of the Semi-arid Region – UFERSA, Brazil."
     email         : "lucasgodeiro@ufersa.edu.br"
 
-affiliation:
-  - id            : "1"
-    institution   : "Department of Economics, University of Tenessee, Knoxville, United States."
-  - id            : "2"
-    institution   : "Department of Economics, Federal University of Paraiba, Brazil."
-  - id            : "3"
-    institution   : "Department of Applied Social Sciences, Federal Rural University of the Semi-arid Region – UFERSA, Brazil."
-
-authornote: |
-  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
-
-  Enter author note here.
-
 
 date: "`r Sys.Date()`"
 bibliography: Bibliography.bib
 output: 
-  rmarkdown::html_vignette:
-    number_sections: true  
-    toc: true
   pdf_document:
-    number_sections: true  
     toc: true
+    number_sections: true 
+    keep_tex: true
+    latex_engine: xelatex
 vignette: >
   %\VignetteIndexEntry{TextForecast R package documentation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
+
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>" , warning=FALSE, eval = FALSE
+  comment = "#>" , warning=FALSE, results = "hide",eval=FALSE
 )
 ```
+# Introduction 
 
 This vignettes shows the functions and examples of the **TextForecast** package. The package functions are based on the  @limagodeiromohsin2018  paper and  @godeiro2018ensaios  Ph.D. thesis.
 
@@ -79,7 +68,7 @@ a list containing  a matrix with the all words counting and another with a td-id
 
 This is a basic example which shows you how todo a word counting from PDF files. The PDF files contains monthly financial News from The Wall Street Journal and The New York Times between 2017 and 2018.
 
-```{r get words example}
+```{r get words example, results = "hide",eval=FALSE}
 ## Example from function get_words. 
 library(TextForecast)
 st_year=2017
@@ -114,7 +103,7 @@ a list containing  a matrix with the all collocations counting and another with 
 
 ## Example
 
-```{r get collocations example}
+```{r get collocations example, results = "hide",eval=FALSE}
 library(TextForecast)
 st_year=2017
 end_year=2018
@@ -156,7 +145,7 @@ a list containing  a matrix with the all collocations and words couting and anot
 This function counts the  words and collocations of the texts in the  PDF format. The PDF files contains monthly financial News from The Wall Street Journal and The New York Times between 2017 and 2018.
 
 
-```{r get terms example}
+```{r get terms example, results = "hide", eval=FALSE}
 library(TextForecast)
 st_year=2017
 end_year=2018
@@ -185,9 +174,9 @@ a list with the terms tf-idf and the terms tf-idf in descending order.
 
 ## Example
 
-```{r tf-idf example}
+```{r tf-idf example, results = "hide"}
 library(TextForecast)
-data("news_data")
+ data("news_data")
  X=as.matrix(news_data[,2:ncol(news_data)])
   tf_idf=tf_idf(X)
   head(tf_idf[[1]])
@@ -199,7 +188,7 @@ This functions computes the optimal alphas.
 ## Arguments 
 
 **x:** A matrix of variables to be selected by shrinkrage methods.
-
+ 
 **w:** Optional Argument. A matrix or vector of variables that cannot be selected(no shrinkrage).
 
 **y:** response variable.
@@ -217,7 +206,7 @@ This functions computes the optimal alphas.
 
 ## Example 
 
-```{r optimal alphas example}
+```{r optimal alphas example, results = "hide"}
 library(TextForecast)
  set.seed(1)
  data("stock_data")
@@ -230,13 +219,14 @@ library(TextForecast)
  grid_alphas=seq(by=0.05,to=0.95,from=0.05)
  cont_folds=TRUE
  t=length(y)
- optimal_alphas=optimal_alphas(x[1:(t-1),],w[1:(t-1),],y[2:t],grid_alphas,TRUE,"gaussian")
+ optimal_alphas=optimal_alphas(x[1:(t-1),],
+ w[1:(t-1),],y[2:t],grid_alphas,TRUE,"gaussian")
  print(optimal_alphas)
 ```
 
 # tv dictionary function 
 
-This functions selects from $X $ the most predictive terms $X^{\ast} $ using supervised machine learning techniques(Elastic Net). 
+This functions selects from $X$ the most predictive terms $X^{\ast}$ using supervised machine learning techniques(Elastic Net). 
 
 ## Arguments 
 
@@ -256,13 +246,13 @@ This functions selects from $X $ the most predictive terms $X^{\ast} $ using sup
 
 ## Value 
 
-$ X_{t}^{\ast}$: a list with the coefficients and a matrix with the most predictive terms.
+$X_{t}^{\ast}$: a list with the coefficients and a matrix with the most predictive terms.
 
 ## Example
 
 This example select the most predictive words from the news database. The news database contains the terms counting of the Wall street journal and the New York Times financial news. 
 
-```{r tv dictionary example}
+```{r tv dictionary example, results = "hide"}
  library(TextForecast)
  set.seed(1)
  data("stock_data")
@@ -275,10 +265,14 @@ This example select the most predictive words from the news database. The news d
  grid_alphas=seq(by=0.05,to=0.95,from=0.05)
  cont_folds=TRUE
  t=length(y)
- optimal_alphas=optimal_alphas(x=x[1:(t-1),],w=w[1:(t-1),],y=y[2:t],grid_alphas=grid_alphas,cont_folds=TRUE,family="gaussian")
- x_star=tv_dictionary(x=x[1:(t-1),],w=w[1:(t-1),],y=y[2:t],alpha=optimal_alphas[1],lambda=optimal_alphas[2],newx=x,family="gaussian")
- optimal_alphas1=optimal_alphas(x=x[1:(t-1),],y=y[2:t],grid_alphas=grid_alphas,cont_folds=TRUE,family="gaussian")
- x_star1=tv_dictionary(x=x[1:(t-1),],y=y[2:t],alpha=optimal_alphas1[1],lambda=optimal_alphas1[2],newx=x,family="gaussian")
+ optimal_alphas=optimal_alphas(x=x[1:(t-1),],w=w[1:(t-1),],
+ y=y[2:t],grid_alphas=grid_alphas,cont_folds=TRUE,family="gaussian")
+ x_star=tv_dictionary(x=x[1:(t-1),],w=w[1:(t-1),],
+ y=y[2:t],alpha=optimal_alphas[1],lambda=optimal_alphas[2],newx=x,family="gaussian")
+ optimal_alphas1=optimal_alphas(x=x[1:(t-1),],y=y[2:t],
+ grid_alphas=grid_alphas,cont_folds=TRUE,family="gaussian")
+ x_star1=tv_dictionary(x=x[1:(t-1),],y=y[2:t],alpha=optimal_alphas1[1],
+ lambda=optimal_alphas1[2],newx=x,family="gaussian")
 ```
 
 # Optimal number of factors function
@@ -287,7 +281,7 @@ This function computes the optimal number of factors according to @ahn2013eigenv
 
 ## Arguments 
 
-**X:** a input matrix X. 
+**data:** a input matrix X. 
 
 **kmax:** the maximum number of factors.
 
@@ -297,10 +291,10 @@ a list with the optimal factors.
 
 ## Example 
 
-``` {r optimal factor example}
+``` {r optimal factor example, results = "hide"}
 library(TextForecast)
 data("optimal_x")
-optimal_factor <- TextForecast::optimal_factors(optimal_x,8)
+optimal_factor <- TextForecast::optimal_factors(data=optimal_x,kmax=8)
 head(optimal_factor[[1]])
 ```
 
@@ -344,7 +338,7 @@ The h step ahead forecast
 
 ## Example
 
-``` {r Text Forecast Example}
+``` {r Text Forecast Example, results = "hide"}
 library(TextForecast)
 set.seed(1)
 data("stock_data")
@@ -374,7 +368,7 @@ This function computes the nowcast h=0.
  the nowcast h=0 for the variable y.
 
 ## Example 
-``` {r Text Nowcast Example}
+``` {r Text Nowcast Example, results = "hide"}
  library(TextForecast)
  set.seed(1)
  data("stock_data")
@@ -427,7 +421,7 @@ the top k terms and the corresponding wordcloud.
 
 ## Example
 
-``` {r Top Terms Example}
+``` {r Top Terms Example, results = "hide"}
 library(TextForecast)
  set.seed(1)
  data("stock_data")
@@ -472,7 +466,7 @@ The time-varying sentiment index. The index is based on the k word/term counting
 
 ## Example 
 
-``` {r TV sentiment index example}
+``` {r TV sentiment index example, results = "hide", eval=FALSE}
 library(TextForecast)
  set.seed(1)
  data("stock_data")

@@ -1,8 +1,8 @@
-#' Title tv dictionary function
+#' tv dictionary function
 #'
 #' @param x A matrix of variables to be selected by shrinkrage methods.
-#' @param w A matrix or vector of variables that cannot be selected(no shrinkrage).
-#' @param y response variable.
+#' @param w Optional Argument. A matrix of variables to be selected by shrinkrage methods.
+#' @param y the response variable.
 #' @param alpha the alpha required in glmnet.
 #' @param lambda the lambda required in glmnet.
 #' @param newx Matrix  that selection will applied. Useful for time series, when we need the observation at time t.

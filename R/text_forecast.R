@@ -16,7 +16,7 @@
 #' w=as.matrix(stock_data[,3])
 #' data("news_data")
 #' data("optimal_factors")
-#' pc=as.matrix(optimal_factors_data)
+#' pc=optimal_factors
 #' z=cbind(w,pc)
 #' fcsts=text_forecast(z,y,1,TRUE)
 

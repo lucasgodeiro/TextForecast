@@ -3,7 +3,7 @@
 TextForecast Package
 ====================
 
-The goal of TextForecast is to carries out forecasting and regression analysis using textual analysis and supervised machine learning techniques as LASSO, Elastic Net and Ridge Regression to select the most predictive words/terms.
+The goal of TextForecast is to carry out forecasting and regression analysis using textual analysis and supervised machine learning techniques as LASSO, Elastic Net and Ridge Regression to select the most predictive words/terms.
 
 Installation
 ------------

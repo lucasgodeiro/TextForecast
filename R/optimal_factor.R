@@ -1,6 +1,6 @@
-#' number factors function
+#' optimal number of factors function
 #'
-#' @param data a matrix X.
+#' @param x a matrix x.
 #' @param kmax the maximum number of factors
 #'
 #' @return a list with the optimal factors.
@@ -8,10 +8,10 @@
 #'
 #' @examples
 #' data("optimal_x")
-#' optimal_factor <- optimal_factors(optimal_x,kmax=8)
-optimal_factors <-function(data,kmax){
+#' optimal_factor <- optimal_number_factors(x=optimal_x,kmax=8)
+optimal_number_factors <-function(x,kmax){
 
-  X=as.matrix(data)
+  X=as.matrix(x)
 
 
 
