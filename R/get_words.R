@@ -100,7 +100,6 @@
 #' }
 
 get_words <- function(corpus_dates,ntrms,st,path_name) {
-library(tidytext)
 
   qtr <- corpus_dates
   options(stringAsFactors = FALSE)
@@ -113,7 +112,7 @@ library(tidytext)
       corpus.tmp1 <- tm_map(corpus.tmp,content_transformer(tolower))
       corpus.tmp2 <- tm_map(corpus.tmp1,stripWhitespace)
       corpus.tmp3 <- tm_map(corpus.tmp2,removeNumbers)
-      corpus.tmp4 <- tm_map(corpus.tmp3,removeWords,c(stop_words$word))
+      corpus.tmp4 <- tm_map(corpus.tmp3,removeWords,c(tidytext::stop_words$word))
       corpus.tmp5 <- tm_map(corpus.tmp4,removeWords,stopwords("english"))
       corpus.tmp6 <- tm_map(corpus.tmp5, stemDocument, language = "english")
       return(corpus.tmp6)

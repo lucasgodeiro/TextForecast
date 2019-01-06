@@ -11,6 +11,7 @@
 #' @import tm
 #' @import SnowballC
 #' @import rpart
+#' @import tidytext
 #' @import text2vec
 #' @import class
 #' @import rpart
@@ -46,7 +47,7 @@ get_collocations <- function(corpus_dates,path_name,ntrms,ngrams_number,min_freq
     corpus.tmp1 <- tm_map(corpus.tmp,content_transformer(tolower))
     corpus.tmp2 <- tm_map(corpus.tmp1,stripWhitespace)
     corpus.tmp3 <- tm_map(corpus.tmp2,removeNumbers)
-    corpus.tmp4 <- tm_map(corpus.tmp3,removeWords,c(stop_words$word))
+    corpus.tmp4 <- tm_map(corpus.tmp3,removeWords,c(tidytext::stop_words$word))
     corpus.tmp5 <- tm_map(corpus.tmp4,removeWords,stopwords("english"))
     #corpus.tmp10 <- tm_map(corpus.tmp9, stemDocument, language = "english")
     return(corpus.tmp5)
