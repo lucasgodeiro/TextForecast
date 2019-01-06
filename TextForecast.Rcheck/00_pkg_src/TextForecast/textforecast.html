@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="date" content="2018-12-27" />
+
+<title>TextForecast R package documentation</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">TextForecast R package documentation</h1>
+<h4 class="author"><em>Luiz Renato Lima</em></h4>
+<address class="author_afil">
+Department of Economics, University of Tennessee, Knoxville, United States and Department of Economics, Federal University of Paraiba, Brazil.<br><a class="author_email" href="mailto:#"><a href="mailto:llima@utk.edu">llima@utk.edu</a></a>
+</address>
+<h4 class="author"><em>Lucas Godeiro</em></h4>
+<address class="author_afil">
+Department of Applied Social Sciences, Federal Rural University of the Semi-arid Region – UFERSA, Brazil.<br><a class="author_email" href="mailto:#"><a href="mailto:lucasgodeiro@ufersa.edu.br">lucasgodeiro@ufersa.edu.br</a></a>
+</address>
+<h4 class="date"><em>2018-12-27</em></h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#installation"><span class="toc-section-number">1</span> Installation</a></li>
+<li><a href="#get_words-function"><span class="toc-section-number">2</span> get_words function</a><ul>
+<li><a href="#arguments"><span class="toc-section-number">2.1</span> Arguments</a></li>
+<li><a href="#value"><span class="toc-section-number">2.2</span> Value</a></li>
+<li><a href="#example"><span class="toc-section-number">2.3</span> Example</a></li>
+</ul></li>
+<li><a href="#get_collocations-function"><span class="toc-section-number">3</span> get_collocations function</a><ul>
+<li><a href="#arguments-1"><span class="toc-section-number">3.1</span> Arguments</a></li>
+<li><a href="#value-1"><span class="toc-section-number">3.2</span> Value</a></li>
+<li><a href="#example-1"><span class="toc-section-number">3.3</span> Example</a></li>
+</ul></li>
+<li><a href="#get_terms-function"><span class="toc-section-number">4</span> get_terms function</a><ul>
+<li><a href="#arguments-2"><span class="toc-section-number">4.1</span> Arguments</a></li>
+<li><a href="#value-2"><span class="toc-section-number">4.2</span> Value</a></li>
+<li><a href="#example-2"><span class="toc-section-number">4.3</span> Example</a></li>
+</ul></li>
+<li><a href="#tf-idf-function"><span class="toc-section-number">5</span> tf-idf function</a><ul>
+<li><a href="#arguments-3"><span class="toc-section-number">5.1</span> Arguments</a></li>
+<li><a href="#value-3"><span class="toc-section-number">5.2</span> Value</a></li>
+<li><a href="#example-3"><span class="toc-section-number">5.3</span> Example</a></li>
+</ul></li>
+<li><a href="#optimal-alphas-function"><span class="toc-section-number">6</span> optimal alphas function</a><ul>
+<li><a href="#arguments-4"><span class="toc-section-number">6.1</span> Arguments</a></li>
+<li><a href="#value-4"><span class="toc-section-number">6.2</span> Value</a></li>
+<li><a href="#example-4"><span class="toc-section-number">6.3</span> Example</a></li>
+</ul></li>
+<li><a href="#tv-dictionary-function"><span class="toc-section-number">7</span> tv dictionary function</a><ul>
+<li><a href="#arguments-5"><span class="toc-section-number">7.1</span> Arguments</a></li>
+<li><a href="#value-5"><span class="toc-section-number">7.2</span> Value</a></li>
+<li><a href="#example-5"><span class="toc-section-number">7.3</span> Example</a></li>
+</ul></li>
+<li><a href="#optimal-number-of-factors-function"><span class="toc-section-number">8</span> Optimal number of factors function</a><ul>
+<li><a href="#arguments-6"><span class="toc-section-number">8.1</span> Arguments</a></li>
+<li><a href="#value-6"><span class="toc-section-number">8.2</span> Value</a></li>
+<li><a href="#example-6"><span class="toc-section-number">8.3</span> Example</a></li>
+</ul></li>
+<li><a href="#hard-thresholding-function"><span class="toc-section-number">9</span> Hard thresholding function</a><ul>
+<li><a href="#arguments-7"><span class="toc-section-number">9.1</span> Arguments</a></li>
+<li><a href="#value-7"><span class="toc-section-number">9.2</span> Value</a></li>
+</ul></li>
+<li><a href="#text-forecast-function"><span class="toc-section-number">10</span> Text Forecast function</a><ul>
+<li><a href="#arguments-8"><span class="toc-section-number">10.1</span> Arguments</a></li>
+<li><a href="#value-8"><span class="toc-section-number">10.2</span> Value</a></li>
+<li><a href="#example-7"><span class="toc-section-number">10.3</span> Example</a></li>
+</ul></li>
+<li><a href="#text-nowcast-function"><span class="toc-section-number">11</span> Text Nowcast function</a><ul>
+<li><a href="#arguments-9"><span class="toc-section-number">11.1</span> Arguments</a></li>
+<li><a href="#value-9"><span class="toc-section-number">11.2</span> Value</a></li>
+<li><a href="#example-8"><span class="toc-section-number">11.3</span> Example</a></li>
+</ul></li>
+<li><a href="#styles"><span class="toc-section-number">12</span> Styles</a></li>
+<li><a href="#figures"><span class="toc-section-number">13</span> Figures</a></li>
+<li><a href="#more-examples"><span class="toc-section-number">14</span> More Examples</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<p>This vignettes shows the functions and example of the <strong>TextForecast</strong> package.</p>
+<div id="installation" class="section level1">
+<h1><span class="header-section-number">1</span> Installation</h1>
+<p>You can install the released version of TextForecast from github with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)
+<span class="kw">library</span>(devtools)
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;lucasgodeiro/TextForecast&quot;</span>)</code></pre></div>
+</div>
+<div id="get_words-function" class="section level1">
+<h1><span class="header-section-number">2</span> get_words function</h1>
+<p>This function counts the words of the texts in the PDF format.</p>
+<div id="arguments" class="section level2">
+<h2><span class="header-section-number">2.1</span> Arguments</h2>
+<p><strong>corpus_dates:</strong> A vector of characters indicating the subfolders where are located the texts.</p>
+<p><strong>ntrms:</strong> maximum numbers of words that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.</p>
+<p><strong>st:</strong> set 0 to stem the words and 1 otherwise.</p>
+<p><strong>path_name:</strong> the folders path where the subfolders with the dates are located.</p>
+</div>
+<div id="value" class="section level2">
+<h2><span class="header-section-number">2.2</span> Value</h2>
+<p>a list containing a matrix with the all words counting and another with a td-idf filtered words couting according to the ntrms.</p>
+</div>
+<div id="example" class="section level2">
+<h2><span class="header-section-number">2.3</span> Example</h2>
+<p>This is a basic example which shows you how todo a word counting from PDF files. The PDF files contains monthly financial News from The Wall Street Journal and The New York Times between 2017 and 2018.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Example from function get_words. 
+<span class="kw">library</span>(TextForecast)
+st_year=<span class="dv">2017</span>
+end_year=<span class="dv">2018</span>
+path_name=<span class="kw">system.file</span>(<span class="st">&quot;news&quot;</span>,<span class="dt">package=</span><span class="st">&quot;TextForecast&quot;</span>)
+qt=<span class="kw">paste0</span>(<span class="kw">sort</span>(<span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dt">from=</span>st_year,<span class="dt">to=</span>end_year,<span class="dt">by=</span><span class="dv">1</span>),<span class="dv">12</span>)),
+<span class="kw">c</span>(<span class="st">&quot;m1&quot;</span>,<span class="st">&quot;m2&quot;</span>,<span class="st">&quot;m3&quot;</span>,<span class="st">&quot;m4&quot;</span>,<span class="st">&quot;m5&quot;</span>,<span class="st">&quot;m6&quot;</span>,<span class="st">&quot;m7&quot;</span>,<span class="st">&quot;m8&quot;</span>,<span class="st">&quot;m9&quot;</span>,<span class="st">&quot;m10&quot;</span>,<span class="st">&quot;m11&quot;</span>,<span class="st">&quot;m12&quot;</span>))
+z_wrd=<span class="kw">get_words</span>(<span class="dt">corpus_dates=</span>qt[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>],<span class="dt">path_name=</span>path_name,<span class="dt">ntrms=</span><span class="dv">10</span>,<span class="dt">st=</span><span class="dv">0</span>)
+<span class="co">#&gt; [1] &quot;2017m1&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m2&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m3&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m4&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m5&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m6&quot;</span>
+zz=z_wrd[[<span class="dv">2</span>]]
+<span class="kw">head</span>(zz)
+<span class="co">#&gt;      broeksmit jain litvak targetd iceland schiller fitzpatrick tesla’</span>
+<span class="co">#&gt; [1,]        28   30     28      11       0        0           0      0</span>
+<span class="co">#&gt; [2,]         0    0      0       0       0        0           0      0</span>
+<span class="co">#&gt; [3,]         0    0      0      42      24       39           0      0</span>
+<span class="co">#&gt; [4,]         0    0      0       0       0        0          41     31</span>
+<span class="co">#&gt; [5,]         0    0      0       0       0        0           0      0</span>
+<span class="co">#&gt; [6,]         0    0      0       0       0        0           0      0</span>
+<span class="co">#&gt;      toshiba ether</span>
+<span class="co">#&gt; [1,]       0     0</span>
+<span class="co">#&gt; [2,]       0     0</span>
+<span class="co">#&gt; [3,]       0     0</span>
+<span class="co">#&gt; [4,]      58     0</span>
+<span class="co">#&gt; [5,]       0     0</span>
+<span class="co">#&gt; [6,]       0    48</span></code></pre></div>
+</div>
+</div>
+<div id="get_collocations-function" class="section level1">
+<h1><span class="header-section-number">3</span> get_collocations function</h1>
+<p>This function counts the collocations of the texts in the PDF format. The PDF files contains monthly financial News from The Wall Street Journal and The New York Times between 2017 and 2018.</p>
+<div id="arguments-1" class="section level2">
+<h2><span class="header-section-number">3.1</span> Arguments</h2>
+<p><strong>corpus_dates:</strong> a character vector indicating the subfolders where are located the texts.</p>
+<p><strong>path_name:</strong> the folders path where the subfolders with the dates are located.</p>
+<p><strong>ntrms:</strong> maximum numbers of collocations that will be filtered by tf-idf. We rank the collocations by tf-idf in a decreasing order. Then, after we select the words with the ntrms highest tf-idf.</p>
+<p><strong>ngrams_number:</strong> integer indicating the size of the collocations. Defaults to 2, indicating to compute bigrams. If set to 3, will find collocations of bigrams and trigrams.</p>
+<p><strong>min_freq:</strong> integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.</p>
+</div>
+<div id="value-1" class="section level2">
+<h2><span class="header-section-number">3.2</span> Value</h2>
+<p>a list containing a matrix with the all collocations counting and another with a td-idf filtered collocations couting according to the ntrms.</p>
+</div>
+<div id="example-1" class="section level2">
+<h2><span class="header-section-number">3.3</span> Example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(TextForecast)
+st_year=<span class="dv">2017</span>
+end_year=<span class="dv">2018</span>
+path_name=<span class="kw">system.file</span>(<span class="st">&quot;news&quot;</span>,<span class="dt">package=</span><span class="st">&quot;TextForecast&quot;</span>)
+qt=<span class="kw">paste0</span>(<span class="kw">sort</span>(<span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dt">from=</span>st_year,<span class="dt">to=</span>end_year,<span class="dt">by=</span><span class="dv">1</span>),<span class="dv">12</span>)),
+<span class="kw">c</span>(<span class="st">&quot;m1&quot;</span>,<span class="st">&quot;m2&quot;</span>,<span class="st">&quot;m3&quot;</span>,<span class="st">&quot;m4&quot;</span>,<span class="st">&quot;m5&quot;</span>,<span class="st">&quot;m6&quot;</span>,<span class="st">&quot;m7&quot;</span>,<span class="st">&quot;m8&quot;</span>,<span class="st">&quot;m9&quot;</span>,<span class="st">&quot;m10&quot;</span>,<span class="st">&quot;m11&quot;</span>,<span class="st">&quot;m12&quot;</span>))
+z_coll=<span class="kw">get_collocations</span>(<span class="dt">corpus_dates=</span>qt[<span class="dv">1</span><span class="op">:</span><span class="dv">23</span>],<span class="dt">path_name=</span>path_name,
+<span class="dt">ntrms=</span><span class="dv">20</span>,<span class="dt">ngrams_number=</span><span class="dv">3</span>,<span class="dt">min_freq=</span><span class="dv">10</span>)
+<span class="co">#&gt; Downloading udpipe model from https://raw.githubusercontent.com/jwijffels/udpipe.models.ud.2.0/master/inst/udpipe-ud-2.0-170801/english-ud-2.0-170801.udpipe to /Users/lucasgodeirolucas/Desktop/TextForecast/vignettes/english-ud-2.0-170801.udpipe</span>
+<span class="co">#&gt; [1] &quot;2017m1&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:01:15 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m2&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:02:46 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m3&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:05:18 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m4&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:07:39 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m5&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:09:30 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m6&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:11:38 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m7&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:13:35 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m8&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:15:37 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m9&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:17:17 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m10&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:19:02 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m11&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:20:43 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m12&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:22:50 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m1&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:25:22 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m2&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:28:33 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m3&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:33:55 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m4&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:39:55 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m5&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:44:41 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m6&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:50:42 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m7&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 00:55:12 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m8&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:00:12 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m9&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:05:20 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m10&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:09:42 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m11&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:15:17 -03&quot;</span>
+zz=z_coll[[<span class="dv">2</span>]]
+<span class="co">#head(zz)</span>
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(zz, <span class="dv">23</span>))</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">oil price</th>
+<th align="right">raise rate</th>
+<th align="right">word march</th>
+<th align="right">white house</th>
+<th align="right">word april</th>
+<th align="right">word june</th>
+<th align="right">word august</th>
+<th align="right">word september</th>
+<th align="right">word october</th>
+<th align="right">word november</th>
+<th align="right">journal online</th>
+<th align="right">journal online wsjo</th>
+<th align="right">monetary policy</th>
+<th align="right">online wsjo</th>
+<th align="right">online wsjo english</th>
+<th align="right">street journal online</th>
+<th align="right">trade war</th>
+<th align="right">wsjo english</th>
+<th align="right">wsjo english copyright</th>
+<th align="right">trump administration</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">51</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">50</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">72</td>
+<td align="right">108</td>
+<td align="right">152</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">82</td>
+<td align="right">162</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">71</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">70</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">143</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">51</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">151</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">46</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">99</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">93</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">43</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">98</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">95</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">175</td>
+<td align="right">234</td>
+<td align="right">179</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">134</td>
+<td align="right">134</td>
+<td align="right">98</td>
+<td align="right">134</td>
+<td align="right">134</td>
+<td align="right">134</td>
+<td align="right">155</td>
+<td align="right">134</td>
+<td align="right">134</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">156</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">162</td>
+<td align="right">372</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">147</td>
+<td align="right">147</td>
+<td align="right">112</td>
+<td align="right">147</td>
+<td align="right">147</td>
+<td align="right">147</td>
+<td align="right">277</td>
+<td align="right">147</td>
+<td align="right">147</td>
+<td align="right">141</td>
+</tr>
+<tr class="odd">
+<td align="right">294</td>
+<td align="right">101</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">132</td>
+<td align="right">132</td>
+<td align="right">132</td>
+<td align="right">132</td>
+<td align="right">132</td>
+<td align="right">132</td>
+<td align="right">0</td>
+<td align="right">132</td>
+<td align="right">132</td>
+<td align="right">101</td>
+</tr>
+<tr class="even">
+<td align="right">204</td>
+<td align="right">160</td>
+<td align="right">0</td>
+<td align="right">184</td>
+<td align="right">0</td>
+<td align="right">341</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">145</td>
+<td align="right">145</td>
+<td align="right">173</td>
+<td align="right">145</td>
+<td align="right">145</td>
+<td align="right">145</td>
+<td align="right">173</td>
+<td align="right">145</td>
+<td align="right">145</td>
+<td align="right">187</td>
+</tr>
+<tr class="odd">
+<td align="right">110</td>
+<td align="right">119</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">99</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">156</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">101</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">138</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">296</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">111</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">113</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">95</td>
+</tr>
+<tr class="odd">
+<td align="right">149</td>
+<td align="right">161</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">290</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">117</td>
+<td align="right">117</td>
+<td align="right">131</td>
+<td align="right">117</td>
+<td align="right">117</td>
+<td align="right">117</td>
+<td align="right">105</td>
+<td align="right">117</td>
+<td align="right">117</td>
+<td align="right">88</td>
+</tr>
+<tr class="even">
+<td align="right">115</td>
+<td align="right">103</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">276</td>
+<td align="right">0</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">0</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">0</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">279</td>
+<td align="right">146</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">340</td>
+<td align="right">216</td>
+<td align="right">216</td>
+<td align="right">0</td>
+<td align="right">216</td>
+<td align="right">216</td>
+<td align="right">216</td>
+<td align="right">0</td>
+<td align="right">216</td>
+<td align="right">216</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="get_terms-function" class="section level1">
+<h1><span class="header-section-number">4</span> get_terms function</h1>
+<p>This function counts the terms of the texts in the PDF format.</p>
+<div id="arguments-2" class="section level2">
+<h2><span class="header-section-number">4.1</span> Arguments</h2>
+<p><strong>corpus_dates:</strong> a character vector indicating the subfolders where are located the texts.</p>
+<p><strong>ntrms_words:</strong> maximum numbers of words that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.</p>
+<p><strong>st:</strong> set 0 to stem the words and 1 otherwise.</p>
+<p><strong>path.name:</strong> the folders path where the subfolders with the dates are located.</p>
+<p><strong>ntrms_collocation:</strong> maximum numbers of collocations that will be filtered by tf-idf. We rank the collocations by tf-idf in a decreasing order. Then, after we select the words with the ntrms highest tf-idf.</p>
+<p><strong>ngrams_number:</strong> integer indicating the size of the collocations. Defaults to 2, indicating to compute bigrams. If set to 3, will find collocations of bigrams and trigrams.</p>
+<p><strong>min_freq:</strong> integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.</p>
+</div>
+<div id="value-2" class="section level2">
+<h2><span class="header-section-number">4.2</span> Value</h2>
+<p>a list containing a matrix with the all collocations and words couting and another with a td-idf filtered collocations and words counting according to the ntrms.</p>
+</div>
+<div id="example-2" class="section level2">
+<h2><span class="header-section-number">4.3</span> Example</h2>
+<p>This function counts the words and collocations of the texts in the PDF format. The PDF files contains monthly financial News from The Wall Street Journal and The New York Times between 2017 and 2018.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(TextForecast)
+st_year=<span class="dv">2017</span>
+end_year=<span class="dv">2018</span>
+path_name=<span class="kw">system.file</span>(<span class="st">&quot;news&quot;</span>,<span class="dt">package=</span><span class="st">&quot;TextForecast&quot;</span>)
+qt=<span class="kw">paste0</span>(<span class="kw">sort</span>(<span class="kw">rep</span>(<span class="kw">seq</span>(<span class="dt">from=</span>st_year,<span class="dt">to=</span>end_year,<span class="dt">by=</span><span class="dv">1</span>),<span class="dv">12</span>)),
+<span class="kw">c</span>(<span class="st">&quot;m1&quot;</span>,<span class="st">&quot;m2&quot;</span>,<span class="st">&quot;m3&quot;</span>,<span class="st">&quot;m4&quot;</span>,<span class="st">&quot;m5&quot;</span>,<span class="st">&quot;m6&quot;</span>,<span class="st">&quot;m7&quot;</span>,<span class="st">&quot;m8&quot;</span>,<span class="st">&quot;m9&quot;</span>,<span class="st">&quot;m10&quot;</span>,<span class="st">&quot;m11&quot;</span>,<span class="st">&quot;m12&quot;</span>))
+z_terms=<span class="kw">get_terms</span>(<span class="dt">corpus_dates=</span>qt[<span class="dv">1</span><span class="op">:</span><span class="dv">23</span>],<span class="dt">path.name=</span>path_name,<span class="dt">ntrms_words=</span><span class="dv">10</span>,
+<span class="dt">ngrams_number=</span><span class="dv">3</span>,<span class="dt">st=</span><span class="dv">0</span>,<span class="dt">ntrms_collocation=</span><span class="dv">10</span>,<span class="dt">min_freq=</span><span class="dv">10</span>)
+<span class="co">#&gt; [1] &quot;2017m1&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m2&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m3&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m4&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m5&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m6&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m7&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m8&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m9&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m10&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m11&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m12&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m1&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m2&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m3&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m4&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m5&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m6&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m7&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m8&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m9&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m10&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m11&quot;</span>
+<span class="co">#&gt; Downloading udpipe model from https://raw.githubusercontent.com/jwijffels/udpipe.models.ud.2.0/master/inst/udpipe-ud-2.0-170801/english-ud-2.0-170801.udpipe to /Users/lucasgodeirolucas/Desktop/TextForecast/vignettes/english-ud-2.0-170801.udpipe</span>
+<span class="co">#&gt; [1] &quot;2017m1&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:34:12 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m2&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:35:47 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m3&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:38:34 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m4&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:41:06 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m5&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:43:06 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m6&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:45:26 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m7&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:47:33 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m8&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:49:46 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m9&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:51:36 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m10&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:53:41 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m11&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:55:41 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2017m12&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 01:58:14 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m1&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 02:01:10 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m2&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 02:04:35 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m3&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 02:10:23 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m4&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 02:16:58 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m5&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 02:22:35 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m6&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 02:29:44 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m7&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 02:35:06 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m8&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 02:41:01 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m9&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 02:47:05 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m10&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 02:52:20 -03&quot;</span>
+<span class="co">#&gt; [1] &quot;2018m11&quot;</span>
+<span class="co">#&gt; [1] &quot;2018-12-28 02:59:02 -03&quot;</span>
+zz=z_terms[[<span class="dv">2</span>]]
+<span class="co">#head(zz,23)</span>
+knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(zz, <span class="dv">23</span>))</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">bullard</th>
+<th align="right">erdogan</th>
+<th align="right">pro</th>
+<th align="right">tariff</th>
+<th align="right">powel</th>
+<th align="right">edt</th>
+<th align="right">clarida</th>
+<th align="right">bostic</th>
+<th align="right">rstprocb</th>
+<th align="right">wsjo</th>
+<th align="right">word april</th>
+<th align="right">word june</th>
+<th align="right">journal online</th>
+<th align="right">journal online wsjo</th>
+<th align="right">online wsjo</th>
+<th align="right">online wsjo english</th>
+<th align="right">street journal online</th>
+<th align="right">trade war</th>
+<th align="right">wsjo english</th>
+<th align="right">wsjo english copyright</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">38</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">23</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">162</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">143</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">10</td>
+<td align="right">47</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">81</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">12</td>
+<td align="right">41</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">108</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">67</td>
+<td align="right">679</td>
+<td align="right">259</td>
+<td align="right">32</td>
+<td align="right">53</td>
+<td align="right">109</td>
+<td align="right">37</td>
+<td align="right">134</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">134</td>
+<td align="right">134</td>
+<td align="right">134</td>
+<td align="right">134</td>
+<td align="right">134</td>
+<td align="right">155</td>
+<td align="right">134</td>
+<td align="right">134</td>
+</tr>
+<tr class="even">
+<td align="right">46</td>
+<td align="right">3</td>
+<td align="right">73</td>
+<td align="right">687</td>
+<td align="right">103</td>
+<td align="right">62</td>
+<td align="right">36</td>
+<td align="right">8</td>
+<td align="right">40</td>
+<td align="right">147</td>
+<td align="right">372</td>
+<td align="right">0</td>
+<td align="right">147</td>
+<td align="right">147</td>
+<td align="right">147</td>
+<td align="right">147</td>
+<td align="right">147</td>
+<td align="right">277</td>
+<td align="right">147</td>
+<td align="right">147</td>
+</tr>
+<tr class="odd">
+<td align="right">50</td>
+<td align="right">22</td>
+<td align="right">75</td>
+<td align="right">225</td>
+<td align="right">39</td>
+<td align="right">42</td>
+<td align="right">52</td>
+<td align="right">29</td>
+<td align="right">44</td>
+<td align="right">132</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">132</td>
+<td align="right">132</td>
+<td align="right">132</td>
+<td align="right">132</td>
+<td align="right">132</td>
+<td align="right">0</td>
+<td align="right">132</td>
+<td align="right">132</td>
+</tr>
+<tr class="even">
+<td align="right">79</td>
+<td align="right">22</td>
+<td align="right">69</td>
+<td align="right">787</td>
+<td align="right">207</td>
+<td align="right">80</td>
+<td align="right">10</td>
+<td align="right">31</td>
+<td align="right">46</td>
+<td align="right">145</td>
+<td align="right">0</td>
+<td align="right">341</td>
+<td align="right">145</td>
+<td align="right">145</td>
+<td align="right">145</td>
+<td align="right">145</td>
+<td align="right">145</td>
+<td align="right">173</td>
+<td align="right">145</td>
+<td align="right">145</td>
+</tr>
+<tr class="odd">
+<td align="right">23</td>
+<td align="right">5</td>
+<td align="right">45</td>
+<td align="right">682</td>
+<td align="right">128</td>
+<td align="right">32</td>
+<td align="right">0</td>
+<td align="right">78</td>
+<td align="right">36</td>
+<td align="right">143</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">156</td>
+<td align="right">143</td>
+<td align="right">143</td>
+</tr>
+<tr class="even">
+<td align="right">32</td>
+<td align="right">170</td>
+<td align="right">49</td>
+<td align="right">467</td>
+<td align="right">194</td>
+<td align="right">47</td>
+<td align="right">22</td>
+<td align="right">18</td>
+<td align="right">39</td>
+<td align="right">140</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">113</td>
+<td align="right">140</td>
+<td align="right">140</td>
+</tr>
+<tr class="odd">
+<td align="right">55</td>
+<td align="right">12</td>
+<td align="right">63</td>
+<td align="right">344</td>
+<td align="right">117</td>
+<td align="right">100</td>
+<td align="right">12</td>
+<td align="right">15</td>
+<td align="right">54</td>
+<td align="right">117</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">117</td>
+<td align="right">117</td>
+<td align="right">117</td>
+<td align="right">117</td>
+<td align="right">117</td>
+<td align="right">105</td>
+<td align="right">117</td>
+<td align="right">117</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">9</td>
+<td align="right">54</td>
+<td align="right">180</td>
+<td align="right">68</td>
+<td align="right">4</td>
+<td align="right">77</td>
+<td align="right">1</td>
+<td align="right">43</td>
+<td align="right">143</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">143</td>
+<td align="right">0</td>
+<td align="right">143</td>
+<td align="right">143</td>
+</tr>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">84</td>
+<td align="right">271</td>
+<td align="right">261</td>
+<td align="right">0</td>
+<td align="right">21</td>
+<td align="right">1</td>
+<td align="right">41</td>
+<td align="right">216</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">216</td>
+<td align="right">216</td>
+<td align="right">216</td>
+<td align="right">216</td>
+<td align="right">216</td>
+<td align="right">0</td>
+<td align="right">216</td>
+<td align="right">216</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="tf-idf-function" class="section level1">
+<h1><span class="header-section-number">5</span> tf-idf function</h1>
+<p>This function computes the terms tf-idf.</p>
+<div id="arguments-3" class="section level2">
+<h2><span class="header-section-number">5.1</span> Arguments</h2>
+<p><strong>x:</strong> a input matrix x of terms counting.</p>
+</div>
+<div id="value-3" class="section level2">
+<h2><span class="header-section-number">5.2</span> Value</h2>
+<p>a list with the terms tf-idf and the terms tf-idf in descending order.</p>
+</div>
+<div id="example-3" class="section level2">
+<h2><span class="header-section-number">5.3</span> Example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">data</span>(<span class="st">&quot;news_data&quot;</span>)
+ X=<span class="kw">as.matrix</span>(news_data[,<span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(news_data)])
+  tf_idf=<span class="kw">tf_idf</span>(X)
+  <span class="kw">head</span>(tf_idf[[<span class="dv">1</span>]])
+<span class="co">#&gt; # A tibble: 6 x 2</span>
+<span class="co">#&gt;   terms    tf_idf</span>
+<span class="co">#&gt;   &lt;chr&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 aaa        548.</span>
+<span class="co">#&gt; 2 abe        513.</span>
+<span class="co">#&gt; 3 abreast    759.</span>
+<span class="co">#&gt; 4 adelphia   733.</span>
+<span class="co">#&gt; 5 adr        903.</span>
+<span class="co">#&gt; 6 adv        971.</span></code></pre></div>
+</div>
+</div>
+<div id="optimal-alphas-function" class="section level1">
+<h1><span class="header-section-number">6</span> optimal alphas function</h1>
+<p>This functions computes the optimal alphas.</p>
+<div id="arguments-4" class="section level2">
+<h2><span class="header-section-number">6.1</span> Arguments</h2>
+<p><strong>x:</strong> A matrix of variables to be selected by shrinkrage methods. <strong>w:</strong> A matrix or vector of variables that cannot be selected(no shrinkrage). <strong>y:</strong> response variable. <strong>grid_alphas:</strong> a grid of alphas between 0 and 1. <strong>cont_folds:</strong> Set TRUE for contiguous folds used in time depedent data. <strong>family</strong> The glmnet family.</p>
+</div>
+<div id="value-4" class="section level2">
+<h2><span class="header-section-number">6.2</span> Value</h2>
+<p><strong>lambdas_opt:</strong> a vector with the optimal alpha and lambda.</p>
+</div>
+<div id="example-4" class="section level2">
+<h2><span class="header-section-number">6.3</span> Example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(TextForecast)
+ <span class="kw">set.seed</span>(<span class="dv">1</span>)
+ <span class="kw">data</span>(<span class="st">&quot;stock_data&quot;</span>)
+ <span class="kw">data</span>(<span class="st">&quot;news_data&quot;</span>)
+ y=<span class="kw">as.matrix</span>(stock_data[,<span class="dv">2</span>])
+ w=<span class="kw">as.matrix</span>(stock_data[,<span class="dv">3</span>])
+ <span class="kw">data</span>(<span class="st">&quot;news_data&quot;</span>)
+ X=news_data[,<span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(news_data)]
+ x=<span class="kw">as.matrix</span>(X)
+ grid_alphas=<span class="kw">seq</span>(<span class="dt">by=</span><span class="fl">0.05</span>,<span class="dt">to=</span><span class="fl">0.95</span>,<span class="dt">from=</span><span class="fl">0.05</span>)
+ cont_folds=<span class="ot">TRUE</span>
+ t=<span class="kw">length</span>(y)
+ optimal_alphas=<span class="kw">optimal_alphas</span>(x[<span class="dv">1</span><span class="op">:</span>(t<span class="op">-</span><span class="dv">1</span>),],w[<span class="dv">1</span><span class="op">:</span>(t<span class="op">-</span><span class="dv">1</span>),],y[<span class="dv">2</span><span class="op">:</span>t],grid_alphas,<span class="ot">TRUE</span>,<span class="st">&quot;gaussian&quot;</span>)
+<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; [1] 4</span>
+<span class="co">#&gt; [1] 5</span>
+<span class="co">#&gt; [1] 6</span>
+<span class="co">#&gt; [1] 7</span>
+<span class="co">#&gt; [1] 8</span>
+<span class="co">#&gt; [1] 9</span>
+<span class="co">#&gt; [1] 10</span>
+<span class="co">#&gt; [1] 11</span>
+<span class="co">#&gt; [1] 12</span>
+<span class="co">#&gt; [1] 13</span>
+<span class="co">#&gt; [1] 14</span>
+<span class="co">#&gt; [1] 15</span>
+<span class="co">#&gt; [1] 16</span>
+<span class="co">#&gt; [1] 17</span>
+<span class="co">#&gt; [1] 18</span>
+<span class="co">#&gt; [1] 19</span>
+ <span class="kw">print</span>(optimal_alphas)
+<span class="co">#&gt; [1] 0.25000000 0.01811369</span></code></pre></div>
+</div>
+</div>
+<div id="tv-dictionary-function" class="section level1">
+<h1><span class="header-section-number">7</span> tv dictionary function</h1>
+<p>This functions selects from $X $ the most predictive terms $X^{} $ using supervised machine learning techniques(Elastic Net).</p>
+<div id="arguments-5" class="section level2">
+<h2><span class="header-section-number">7.1</span> Arguments</h2>
+<p><strong>x:</strong> A matrix of variables to be selected by shrinkrage methods.</p>
+<p><strong>w:</strong> A matrix or vector of variables that cannot be selected(no shrinkrage).</p>
+<p><strong>y:</strong> response variable.</p>
+<p><strong>alpha:</strong> the alpha required in glmnet.</p>
+<p><strong>lambda:</strong> the lambda required in glmnet.</p>
+<p><strong>newx:</strong> Matrix that selection will applied. Useful for time series, when we need the observation at time t.</p>
+<p><strong>family:</strong> the glmnet family.</p>
+</div>
+<div id="value-5" class="section level2">
+<h2><span class="header-section-number">7.2</span> Value</h2>
+<p>$ X_{t}^{}$: a list with the coefficients and a matrix with the most predictive terms.</p>
+</div>
+<div id="example-5" class="section level2">
+<h2><span class="header-section-number">7.3</span> Example</h2>
+<p>This example select the most predictive words from the news database. The news database contains the terms counting of the Wall street journal and the New York Times financial news.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">library</span>(TextForecast)
+ <span class="kw">set.seed</span>(<span class="dv">1</span>)
+ <span class="kw">data</span>(<span class="st">&quot;stock_data&quot;</span>)
+ <span class="kw">data</span>(<span class="st">&quot;news_data&quot;</span>)
+ y=<span class="kw">as.matrix</span>(stock_data[,<span class="dv">2</span>])
+ w=<span class="kw">as.matrix</span>(stock_data[,<span class="dv">3</span>])
+ <span class="kw">data</span>(<span class="st">&quot;news_data&quot;</span>)
+ X=news_data[,<span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(news_data)]
+ x=<span class="kw">as.matrix</span>(X)
+ grid_alphas=<span class="kw">seq</span>(<span class="dt">by=</span><span class="fl">0.05</span>,<span class="dt">to=</span><span class="fl">0.95</span>,<span class="dt">from=</span><span class="fl">0.05</span>)
+ cont_folds=<span class="ot">TRUE</span>
+ t=<span class="kw">length</span>(y)
+ optimal_alphas=<span class="kw">optimal_alphas</span>(<span class="dt">x=</span>x[<span class="dv">1</span><span class="op">:</span>(t<span class="op">-</span><span class="dv">1</span>),],<span class="dt">w=</span>w[<span class="dv">1</span><span class="op">:</span>(t<span class="op">-</span><span class="dv">1</span>),],<span class="dt">y=</span>y[<span class="dv">2</span><span class="op">:</span>t],<span class="dt">grid_alphas=</span>grid_alphas,<span class="dt">cont_folds=</span><span class="ot">TRUE</span>,<span class="dt">family=</span><span class="st">&quot;gaussian&quot;</span>)
+<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; [1] 4</span>
+<span class="co">#&gt; [1] 5</span>
+<span class="co">#&gt; [1] 6</span>
+<span class="co">#&gt; [1] 7</span>
+<span class="co">#&gt; [1] 8</span>
+<span class="co">#&gt; [1] 9</span>
+<span class="co">#&gt; [1] 10</span>
+<span class="co">#&gt; [1] 11</span>
+<span class="co">#&gt; [1] 12</span>
+<span class="co">#&gt; [1] 13</span>
+<span class="co">#&gt; [1] 14</span>
+<span class="co">#&gt; [1] 15</span>
+<span class="co">#&gt; [1] 16</span>
+<span class="co">#&gt; [1] 17</span>
+<span class="co">#&gt; [1] 18</span>
+<span class="co">#&gt; [1] 19</span>
+ x_star=<span class="kw">tv_dictionary</span>(<span class="dt">x=</span>x[<span class="dv">1</span><span class="op">:</span>(t<span class="op">-</span><span class="dv">1</span>),],<span class="dt">w=</span>w[<span class="dv">1</span><span class="op">:</span>(t<span class="op">-</span><span class="dv">1</span>),],<span class="dt">y=</span>y[<span class="dv">2</span><span class="op">:</span>t],<span class="dt">alpha=</span>optimal_alphas[<span class="dv">1</span>],<span class="dt">lambda=</span>optimal_alphas[<span class="dv">2</span>],<span class="dt">newx=</span>x,<span class="dt">family=</span><span class="st">&quot;gaussian&quot;</span>)
+ optimal_alphas1=<span class="kw">optimal_alphas</span>(<span class="dt">x=</span>x[<span class="dv">1</span><span class="op">:</span>(t<span class="op">-</span><span class="dv">1</span>),],<span class="dt">y=</span>y[<span class="dv">2</span><span class="op">:</span>t],<span class="dt">grid_alphas=</span>grid_alphas,<span class="dt">cont_folds=</span><span class="ot">TRUE</span>,<span class="dt">family=</span><span class="st">&quot;gaussian&quot;</span>)
+<span class="co">#&gt; [1] 1</span>
+<span class="co">#&gt; [1] 2</span>
+<span class="co">#&gt; [1] 3</span>
+<span class="co">#&gt; [1] 4</span>
+<span class="co">#&gt; [1] 5</span>
+<span class="co">#&gt; [1] 6</span>
+<span class="co">#&gt; [1] 7</span>
+<span class="co">#&gt; [1] 8</span>
+<span class="co">#&gt; [1] 9</span>
+<span class="co">#&gt; [1] 10</span>
+<span class="co">#&gt; [1] 11</span>
+<span class="co">#&gt; [1] 12</span>
+<span class="co">#&gt; [1] 13</span>
+<span class="co">#&gt; [1] 14</span>
+<span class="co">#&gt; [1] 15</span>
+<span class="co">#&gt; [1] 16</span>
+<span class="co">#&gt; [1] 17</span>
+<span class="co">#&gt; [1] 18</span>
+<span class="co">#&gt; [1] 19</span>
+ x_star1=<span class="kw">tv_dictionary</span>(<span class="dt">x=</span>x[<span class="dv">1</span><span class="op">:</span>(t<span class="op">-</span><span class="dv">1</span>),],<span class="dt">y=</span>y[<span class="dv">2</span><span class="op">:</span>t],<span class="dt">alpha=</span>optimal_alphas1[<span class="dv">1</span>],<span class="dt">lambda=</span>optimal_alphas1[<span class="dv">2</span>],<span class="dt">newx=</span>x,<span class="dt">family=</span><span class="st">&quot;gaussian&quot;</span>)</code></pre></div>
+</div>
+</div>
+<div id="optimal-number-of-factors-function" class="section level1">
+<h1><span class="header-section-number">8</span> Optimal number of factors function</h1>
+<p>This function computes the optimal number of factors according to <span class="citation">Ahn and Horenstein (2013)</span>.</p>
+<div id="arguments-6" class="section level2">
+<h2><span class="header-section-number">8.1</span> Arguments</h2>
+<p>**<a href="data:**" class="uri">data:**</a> a input matrix X.</p>
+<p><strong>kmax:</strong> the maximum number of factors.</p>
+</div>
+<div id="value-6" class="section level2">
+<h2><span class="header-section-number">8.2</span> Value</h2>
+<p>a list with the optimal factors.</p>
+</div>
+<div id="example-6" class="section level2">
+<h2><span class="header-section-number">8.3</span> Example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(TextForecast)
+<span class="co">#data(&quot;optimal_x&quot;)</span>
+<span class="co">#optimal_factor &lt;- optimal_factors(data=optimal_x,kmax=8)</span>
+<span class="co">#head(optimal_factor[[1]])</span></code></pre></div>
+</div>
+</div>
+<div id="hard-thresholding-function" class="section level1">
+<h1><span class="header-section-number">9</span> Hard thresholding function</h1>
+<p>This function carries out the hard thresholding according to <span class="citation">Bai and Ng (2008)</span></p>
+<div id="arguments-7" class="section level2">
+<h2><span class="header-section-number">9.1</span> Arguments</h2>
+<p><strong>x:</strong> the input matrix x.</p>
+<p><strong>w:</strong> the optional input matrix w, that cannot be selected.</p>
+<p><strong>y:</strong> the response variable.</p>
+<p><strong>p_value:</strong> the threshold p-value.</p>
+<p><strong>newx:</strong> matrix that selection will applied. Useful for time series, when we need the observation at time t.</p>
+</div>
+<div id="value-7" class="section level2">
+<h2><span class="header-section-number">9.2</span> Value</h2>
+<p>the variables less than p-value.</p>
+</div>
+</div>
+<div id="text-forecast-function" class="section level1">
+<h1><span class="header-section-number">10</span> Text Forecast function</h1>
+<p>This functions computes the <span class="math inline">\(h\)</span> step ahead forecast based on textual and/or economic data.</p>
+<div id="arguments-8" class="section level2">
+<h2><span class="header-section-number">10.1</span> Arguments</h2>
+<p><strong>x:</strong> the input matrix x.</p>
+<p><strong>y:</strong> the response variable</p>
+<p><strong>h:</strong> the forecast horizon</p>
+<p><strong>intercept:</strong> TRUE for include intercept in the forecast equation.</p>
+</div>
+<div id="value-8" class="section level2">
+<h2><span class="header-section-number">10.2</span> Value</h2>
+<p>The h step ahead forecast</p>
+</div>
+<div id="example-7" class="section level2">
+<h2><span class="header-section-number">10.3</span> Example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(TextForecast)
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+<span class="kw">data</span>(<span class="st">&quot;stock_data&quot;</span>)
+y=<span class="kw">as.matrix</span>(stock_data[,<span class="dv">2</span>])
+w=<span class="kw">as.matrix</span>(stock_data[,<span class="dv">3</span>])
+<span class="kw">data</span>(<span class="st">&quot;optimal_factors_data&quot;</span>)
+pc=<span class="kw">as.matrix</span>(optimal_factors)
+z=<span class="kw">cbind</span>(w,pc)
+fcsts=<span class="kw">text_forecast</span>(z,y,<span class="dv">1</span>,<span class="ot">TRUE</span>)
+<span class="kw">print</span>(fcsts)
+<span class="co">#&gt;              [,1]</span>
+<span class="co">#&gt; [1,] 0.0007558794</span></code></pre></div>
+</div>
+</div>
+<div id="text-nowcast-function" class="section level1">
+<h1><span class="header-section-number">11</span> Text Nowcast function</h1>
+<p>This function computes the nowcast h=0.</p>
+<div id="arguments-9" class="section level2">
+<h2><span class="header-section-number">11.1</span> Arguments</h2>
+<p><strong>x:</strong> the input matrix x.</p>
+<p><strong>y:</strong> the response variable</p>
+<p><strong>intercept:</strong> TRUE for include intercept in the forecast equation.</p>
+</div>
+<div id="value-9" class="section level2">
+<h2><span class="header-section-number">11.2</span> Value</h2>
+<p>the nowcast h=0 for the variable y.</p>
+</div>
+<div id="example-8" class="section level2">
+<h2><span class="header-section-number">11.3</span> Example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="kw">library</span>(TextForecast)
+ <span class="kw">set.seed</span>(<span class="dv">1</span>)
+ <span class="kw">data</span>(<span class="st">&quot;stock_data&quot;</span>)
+  <span class="kw">data</span>(<span class="st">&quot;news_data&quot;</span>)
+ y=<span class="kw">as.matrix</span>(stock_data[,<span class="dv">2</span>])
+ w=<span class="kw">as.matrix</span>(stock_data[,<span class="dv">3</span>])
+ <span class="kw">data</span>(<span class="st">&quot;news_data&quot;</span>)
+ <span class="kw">data</span>(<span class="st">&quot;optimal_factors_data&quot;</span>)
+ pc=<span class="kw">as.matrix</span>(optimal_factors)
+ z=<span class="kw">cbind</span>(w,pc)
+ t=<span class="kw">length</span>(y)
+ ncsts=<span class="kw">text_nowcast</span>(z,y[<span class="dv">1</span><span class="op">:</span>(t<span class="op">-</span><span class="dv">1</span>)],<span class="ot">TRUE</span>)
+ <span class="kw">print</span>(ncsts)
+<span class="co">#&gt;             [,1]</span>
+<span class="co">#&gt; [1,] 0.005813536</span></code></pre></div>
+<p>Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The <code>html_vignette</code> output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The <code>html_vignette</code> format:</p>
+<ul>
+<li>Never uses retina figures</li>
+<li>Has a smaller default figure size</li>
+<li>Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style</li>
+</ul>
+<p>Note the various macros within the <code>vignette</code> section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the <code>title</code> field and the <code>\VignetteIndexEntry</code> to match the title of your vignette.</p>
+</div>
+</div>
+<div id="styles" class="section level1">
+<h1><span class="header-section-number">12</span> Styles</h1>
+<p>The <code>html_vignette</code> template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:</p>
+<pre><code>output: 
+  rmarkdown::html_vignette:
+    css: mystyles.css</code></pre>
+</div>
+<div id="figures" class="section level1">
+<h1><span class="header-section-number">13</span> Figures</h1>
+<p>The figure sizes have been customised so that you can easily put two images side-by-side.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
+<span class="kw">plot</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><img src="data:image/png;base64,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" /></p>
+<p>You can enable figure captions by <code>fig_caption: yes</code> in YAML:</p>
+<pre><code>output:
+  rmarkdown::html_vignette:
+    fig_caption: yes</code></pre>
+<p>Then you can use the chunk option <code>fig.cap = &quot;Your figure caption.&quot;</code> in <strong>knitr</strong>.</p>
+</div>
+<div id="more-examples" class="section level1">
+<h1><span class="header-section-number">14</span> More Examples</h1>
+<p>You can write math expressions, e.g. <span class="math inline">\(Y = X\beta + \epsilon\)</span>, footnotes<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, and tables, e.g. using <code>knitr::kable()</code>.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mazda RX4</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160.0</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.620</td>
+<td align="right">16.46</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td>Mazda RX4 Wag</td>
+<td align="right">21.0</td>
+<td align="right">6</td>
+<td align="right">160.0</td>
+<td align="right">110</td>
+<td align="right">3.90</td>
+<td align="right">2.875</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td>Datsun 710</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">108.0</td>
+<td align="right">93</td>
+<td align="right">3.85</td>
+<td align="right">2.320</td>
+<td align="right">18.61</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>Hornet 4 Drive</td>
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258.0</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+<td align="right">19.44</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td>Hornet Sportabout</td>
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360.0</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td>Valiant</td>
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225.0</td>
+<td align="right">105</td>
+<td align="right">2.76</td>
+<td align="right">3.460</td>
+<td align="right">20.22</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td>Duster 360</td>
+<td align="right">14.3</td>
+<td align="right">8</td>
+<td align="right">360.0</td>
+<td align="right">245</td>
+<td align="right">3.21</td>
+<td align="right">3.570</td>
+<td align="right">15.84</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td>Merc 240D</td>
+<td align="right">24.4</td>
+<td align="right">4</td>
+<td align="right">146.7</td>
+<td align="right">62</td>
+<td align="right">3.69</td>
+<td align="right">3.190</td>
+<td align="right">20.00</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td>Merc 230</td>
+<td align="right">22.8</td>
+<td align="right">4</td>
+<td align="right">140.8</td>
+<td align="right">95</td>
+<td align="right">3.92</td>
+<td align="right">3.150</td>
+<td align="right">22.90</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td>Merc 280</td>
+<td align="right">19.2</td>
+<td align="right">6</td>
+<td align="right">167.6</td>
+<td align="right">123</td>
+<td align="right">3.92</td>
+<td align="right">3.440</td>
+<td align="right">18.30</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
+<p>Also a quote using <code>&gt;</code>:</p>
+<blockquote>
+<p>“He who gives up [code] safety for [code] speed deserves neither.” (<a href="https://twitter.com/hadleywickham/status/504368538874703872">via</a>)</p>
+</blockquote>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-ahn2013eigenvalue">
+<p>Ahn, Seung C, and Alex R Horenstein. 2013. “Eigenvalue Ratio Test for the Number of Factors.” <em>Econometrica</em> 81 (3). Wiley Online Library: 1203–27.</p>
+</div>
+<div id="ref-bai2008forecasting">
+<p>Bai, Jushan, and Serena Ng. 2008. “Forecasting Economic Time Series Using Targeted Predictors.” <em>Journal of Econometrics</em> 146 (2). Elsevier: 304–17.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>A footnote here.<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

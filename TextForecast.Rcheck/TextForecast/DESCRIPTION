@@ -1,0 +1,26 @@
+Package: TextForecast
+Type: Package
+Title: Forecasting and Regression Analysis using textual data.
+Version: 0.1.0
+Authors@R: c(
+    person("Luiz Renato", "Lima", email = "hadley@rstudio.com", role = "cre"),
+    person("Lucas", "Godeiro", email = "lucas.godeiro@hotmail.com", role = "aut"))
+Maintainer: Lucas Godeiro <lucas.godeiro@hotmail.com>
+Description: This package carries out forecasting and regression analysis using textual analysis and supervised machine learning techniques as LASSO, Elastic Net and Ridge Regression to select the most predictive words/terms. 
+License: GLP-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports: SnowballC, forecast, pdftools, rpart, stats, text2vec, tidyr,
+        tidytext, tm, tsDyn, tseries, vars, wordcloud, dplyr, plyr,
+        udpipe, class, lars, lsa, quantreg, tau, RColorBrewer, forcats,
+        ggplot2, glmnet, tibble
+URL: https://github.com/lucasgodeiro/TextForecast
+BugReports: https://github.com/lucasgodeiro/TextForecast/issues
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2019-01-05 23:35:02 UTC; lucasgodeirolucas
+Author: Luiz Renato Lima [cre],
+  Lucas Godeiro [aut]
+Built: R 3.5.1; ; 2019-01-05 23:38:41 UTC; unix
