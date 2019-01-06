@@ -10,22 +10,13 @@
 #' @import udpipe
 #' @import tseries
 #' @import stats
-#' @import forecast
 #' @import vars
-#' @import tsDyn
-#' @import quantreg
 #' @import tm
-#' @import wordcloud
 #' @import SnowballC
 #' @import rpart
-#' @import tidyr
 #' @import text2vec
-#' @import tidytext
 #' @import class
 #' @import rpart
-#' @import lars
-#' @import lsa
-#' @import tau
 #' @importFrom dplyr tibble
 #' @importFrom plyr rbind.fill
 #' @export
@@ -35,12 +26,13 @@
 #' st_year=2017
 #' end_year=2018
 #' path_name=system.file("news",package="TextForecast")
-#' qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
-#' z_coll=get_collocations(corpus_dates=qt[1:23],path_name=path_name,ntrms=500,ngrams_number=3,min_freq=10)
+#' qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),
+#' c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
+#' z_coll=get_collocations(corpus_dates=qt[1:23],path_name=path_name,
+#' ntrms=500,ngrams_number=3,min_freq=10)
 #' }
 
 get_collocations <- function(corpus_dates,path_name,ntrms,ngrams_number,min_freq) {
-library(tidytext)
 
 
 
