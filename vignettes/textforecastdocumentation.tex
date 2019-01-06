@@ -480,6 +480,23 @@ series, when we need the observation at time t.
 
 the variables less than p-value.
 
+\subsection{Example}\label{example-7}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(TextForecast)}
+\KeywordTok{data}\NormalTok{(}\StringTok{"stock_data"}\NormalTok{)}
+\KeywordTok{data}\NormalTok{(}\StringTok{"optimal_factors"}\NormalTok{)}
+\NormalTok{y=}\KeywordTok{as.matrix}\NormalTok{(stock_data[,}\DecValTok{2}\NormalTok{])}
+\NormalTok{y=}\KeywordTok{as.vector}\NormalTok{(y)}
+\NormalTok{w=}\KeywordTok{as.matrix}\NormalTok{(stock_data[,}\DecValTok{3}\NormalTok{])}
+\NormalTok{pc=}\KeywordTok{as.matrix}\NormalTok{(optimal_factors)}
+\NormalTok{t=}\KeywordTok{length}\NormalTok{(y)}
+\NormalTok{news_factor <-}\StringTok{ }\KeywordTok{hard_thresholding}\NormalTok{(}\DataTypeTok{w=}\NormalTok{w[}\DecValTok{1}\OperatorTok{:}\NormalTok{(t}\OperatorTok{-}\DecValTok{1}\NormalTok{),],}
+\DataTypeTok{x=}\NormalTok{pc[}\DecValTok{1}\OperatorTok{:}\NormalTok{(t}\OperatorTok{-}\DecValTok{1}\NormalTok{),],}\DataTypeTok{y=}\NormalTok{y[}\DecValTok{2}\OperatorTok{:}\NormalTok{t],}\DataTypeTok{p_value =} \FloatTok{0.01}\NormalTok{,}\DataTypeTok{newx =}\NormalTok{ pc)}
+\end{Highlighting}
+\end{Shaded}
+
 \section{Text Forecast function}\label{text-forecast-function}
 
 This functions computes the \(h\) step ahead forecast based on textual
@@ -499,7 +516,7 @@ and/or economic data.
 
 The h step ahead forecast
 
-\subsection{Example}\label{example-7}
+\subsection{Example}\label{example-8}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -532,7 +549,7 @@ This function computes the nowcast h=0.
 
 the nowcast h=0 for the variable y.
 
-\subsection{Example}\label{example-8}
+\subsection{Example}\label{example-9}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -586,7 +603,7 @@ not be selected.
 
 the top k terms and the corresponding wordcloud.
 
-\subsection{Example}\label{example-9}
+\subsection{Example}\label{example-10}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -636,7 +653,7 @@ series, when we need the observation at time t.
 The time-varying sentiment index. The index is based on the k word/term
 counting and is computed using: tv\_index=(pos-neg)/(pos+neg).
 
-\subsection{Example}\label{example-10}
+\subsection{Example}\label{example-11}
 
 \begin{Shaded}
 \begin{Highlighting}[]

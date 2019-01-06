@@ -1,0 +1,505 @@
+---
+title: "TextForecast R package documentation"
+author: 
+  - name          : "Luiz Renato Lima"
+    affiliation   : "Department of Economics, University of Tennessee, Knoxville, United States and Department of Economics, Federal University of Paraiba, Brazil."
+    email         : "llima@utk.edu"
+  - name          : "Lucas Godeiro"
+    affiliation   : "Department of Applied Social Sciences, Federal Rural University of the Semi-arid Region – UFERSA, Brazil."
+    email         : "lucasgodeiro@ufersa.edu.br"
+
+
+date: "`r Sys.Date()`"
+bibliography: Bibliography.bib
+output: 
+  pdf_document:
+    toc: true
+    number_sections: true 
+    keep_tex: true
+    latex_engine: xelatex
+vignette: >
+  %\VignetteIndexEntry{TextForecast R package documentation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>" , warning=FALSE, results = "hide",eval=FALSE
+)
+```
+# Introduction 
+
+This vignettes shows the functions and examples of the **TextForecast** package. The package functions are based on the  @limagodeiromohsin2018  paper and  @godeiro2018ensaios  Ph.D. thesis.
+
+# Installation
+
+You can install the released version of TextForecast from github with:
+
+``` r
+install.packages("devtools")
+library(devtools)
+devtools::install_github("lucasgodeiro/TextForecast")
+```
+
+
+# get_words function 
+
+This function counts the  words of the texts in the  PDF format.
+
+## Arguments 
+
+**corpus_dates:** A vector of characters indicating the subfolders where are located the texts.
+
+**ntrms:** maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.
+
+**st:** set 0 to stem the words and 1 otherwise.
+
+**path_name:** the folders path where the subfolders with the dates are located.
+
+## Value 
+
+a list containing  a matrix with the all words counting and another with a td-idf filtered words couting according to the ntrms.
+
+## Example
+
+This is a basic example which shows you how todo a word counting from PDF files. The PDF files contains monthly financial News from The Wall Street Journal and The New York Times between 2017 and 2018.
+
+```{r get words example, results = "hide",eval=FALSE}
+## Example from function get_words. 
+library(TextForecast)
+st_year=2017
+end_year=2018
+path_name=system.file("news",package="TextForecast")
+qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),
+c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
+z_wrd=get_words(corpus_dates=qt[1:6],path_name=path_name,ntrms=10,st=0)
+zz=z_wrd[[2]]
+head(zz)
+```
+
+# get_collocations function 
+
+This function counts the  collocations of the texts in the  PDF format. The PDF files contains monthly financial News from The Wall Street Journal and The New York Times between 2017 and 2018.
+
+## Arguments 
+
+**corpus_dates:** a character vector indicating the subfolders where are located the texts.
+
+**path_name:** the folders path where the subfolders with the dates are located.
+
+**ntrms:** maximum numbers of collocations  that will be filtered by tf-idf. We rank the collocations by tf-idf in a decreasing order. Then, after we select the words with the ntrms highest tf-idf.
+
+**ngrams_number:** integer indicating the size of the collocations. Defaults to 2, indicating to compute bigrams. If set to 3, will find collocations of bigrams and trigrams.
+
+**min_freq:** integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.
+
+## Value 
+
+a list containing  a matrix with the all collocations counting and another with a td-idf filtered collocations couting according to the ntrms.
+
+## Example
+
+```{r get collocations example, results = "hide",eval=FALSE}
+library(TextForecast)
+st_year=2017
+end_year=2018
+path_name=system.file("news",package="TextForecast")
+qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),
+c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
+z_coll=get_collocations(corpus_dates=qt[1:23],path_name=path_name,
+ntrms=20,ngrams_number=3,min_freq=10)
+zz=z_coll[[2]]
+#head(zz)
+knitr::kable(head(zz, 23))
+
+```
+
+# get_terms function 
+This function counts the  terms of the texts in the  PDF format.
+
+## Arguments 
+
+ **corpus_dates:** a character vector indicating the subfolders where are located the texts.
+
+**ntrms_words:** maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.
+
+ **st:** set 0 to stem the words and 1 otherwise.
+
+ **path.name:** the folders path where the subfolders with the dates are located.
+
+**ntrms_collocation:** maximum numbers of collocations  that will be filtered by tf-idf. We rank the collocations by tf-idf in a decreasing order. Then, after we select the words with the ntrms highest tf-idf.
+
+**ngrams_number:** integer indicating the size of the collocations. Defaults to 2, indicating to compute bigrams. If set to 3, will find collocations of bigrams and trigrams.
+
+**min_freq:** integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.
+
+##Value 
+a list containing  a matrix with the all collocations and words couting and another with a td-idf filtered collocations and words counting according to the ntrms.
+
+##Example 
+
+This function counts the  words and collocations of the texts in the  PDF format. The PDF files contains monthly financial News from The Wall Street Journal and The New York Times between 2017 and 2018.
+
+
+```{r get terms example, results = "hide", eval=FALSE}
+library(TextForecast)
+st_year=2017
+end_year=2018
+path_name=system.file("news",package="TextForecast")
+qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),
+c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
+z_terms=get_terms(corpus_dates=qt[1:23],path.name=path_name,ntrms_words=10,
+ngrams_number=3,st=0,ntrms_collocation=10,min_freq=10)
+zz=z_terms[[2]]
+#head(zz,23)
+knitr::kable(head(zz, 23))
+```
+
+
+# tf-idf function
+
+This function computes the terms tf-idf. 
+
+## Arguments 
+
+**x:** a input matrix x of terms counting.
+
+## Value 
+
+a list with the terms tf-idf and the terms tf-idf in descending order. 
+
+## Example
+
+```{r tf-idf example, results = "hide"}
+library(TextForecast)
+ data("news_data")
+ X=as.matrix(news_data[,2:ncol(news_data)])
+  tf_idf=tf_idf(X)
+  head(tf_idf[[1]])
+```
+# optimal alphas function
+
+This functions computes the optimal alphas.
+
+## Arguments 
+
+**x:** A matrix of variables to be selected by shrinkrage methods.
+ 
+**w:** Optional Argument. A matrix or vector of variables that cannot be selected(no shrinkrage).
+
+**y:** response variable.
+
+**grid_alphas:** a grid of alphas between 0 and 1.
+
+**cont_folds:** Set TRUE for contiguous folds used in time depedent data.
+
+**family** The glmnet family. 
+
+
+## Value 
+
+**lambdas_opt:** a vector with the optimal alpha and lambda.
+
+## Example 
+
+```{r optimal alphas example, results = "hide"}
+library(TextForecast)
+ set.seed(1)
+ data("stock_data")
+ data("news_data")
+ y=as.matrix(stock_data[,2])
+ w=as.matrix(stock_data[,3])
+ data("news_data")
+ X=news_data[,2:ncol(news_data)]
+ x=as.matrix(X)
+ grid_alphas=seq(by=0.05,to=0.95,from=0.05)
+ cont_folds=TRUE
+ t=length(y)
+ optimal_alphas=optimal_alphas(x[1:(t-1),],
+ w[1:(t-1),],y[2:t],grid_alphas,TRUE,"gaussian")
+ print(optimal_alphas)
+```
+
+# tv dictionary function 
+
+This functions selects from $X$ the most predictive terms $X^{\ast}$ using supervised machine learning techniques(Elastic Net). 
+
+## Arguments 
+
+ **x:** A matrix of variables to be selected by shrinkrage methods.
+
+ **w:** Optional Argument. A matrix or vector of variables that cannot be selected(no shrinkrage).
+
+ **y:** response variable.
+
+ **alpha:** the alpha required in glmnet.
+
+ **lambda:** the lambda required in glmnet.
+
+ **newx:** Matrix  that selection will applied. Useful for time series, when we need the observation at time t.
+
+**family:** the glmnet family.
+
+## Value 
+
+$X_{t}^{\ast}$: a list with the coefficients and a matrix with the most predictive terms.
+
+## Example
+
+This example select the most predictive words from the news database. The news database contains the terms counting of the Wall street journal and the New York Times financial news. 
+
+```{r tv dictionary example, results = "hide"}
+ library(TextForecast)
+ set.seed(1)
+ data("stock_data")
+ data("news_data")
+ y=as.matrix(stock_data[,2])
+ w=as.matrix(stock_data[,3])
+ data("news_data")
+ X=news_data[,2:ncol(news_data)]
+ x=as.matrix(X)
+ grid_alphas=seq(by=0.05,to=0.95,from=0.05)
+ cont_folds=TRUE
+ t=length(y)
+ optimal_alphas=optimal_alphas(x=x[1:(t-1),],w=w[1:(t-1),],
+ y=y[2:t],grid_alphas=grid_alphas,cont_folds=TRUE,family="gaussian")
+ x_star=tv_dictionary(x=x[1:(t-1),],w=w[1:(t-1),],
+ y=y[2:t],alpha=optimal_alphas[1],lambda=optimal_alphas[2],newx=x,family="gaussian")
+ optimal_alphas1=optimal_alphas(x=x[1:(t-1),],y=y[2:t],
+ grid_alphas=grid_alphas,cont_folds=TRUE,family="gaussian")
+ x_star1=tv_dictionary(x=x[1:(t-1),],y=y[2:t],alpha=optimal_alphas1[1],
+ lambda=optimal_alphas1[2],newx=x,family="gaussian")
+```
+
+# Optimal number of factors function
+
+This function computes the optimal number of factors according to @ahn2013eigenvalue. 
+
+## Arguments 
+
+**data:** a input matrix X. 
+
+**kmax:** the maximum number of factors.
+
+## Value
+
+a list with the optimal factors.
+
+## Example 
+
+``` {r optimal factor example, results = "hide"}
+library(TextForecast)
+data("optimal_x")
+optimal_factor <- TextForecast::optimal_factors(data=optimal_x,kmax=8)
+head(optimal_factor[[1]])
+```
+
+#Hard thresholding function 
+
+This function carries out the hard thresholding according to @bai2008forecasting
+
+## Arguments
+
+**x:** the input matrix x.
+ 
+**w:**  Optional Argument. The optional input matrix w, that cannot be selected.
+ 
+**y:** the response variable.
+ 
+**p_value:** the threshold p-value.
+ 
+**newx:** matrix  that selection will applied. Useful for time series, when we need the observation at time t.
+
+## Value
+
+the variables less than p-value. 
+
+## Example 
+
+``` {r hard thresholding example }
+library(TextForecast)
+data("stock_data")
+data("optimal_factors")
+y=as.matrix(stock_data[,2])
+y=as.vector(y)
+w=as.matrix(stock_data[,3])
+pc=as.matrix(optimal_factors)
+t=length(y)
+news_factor <- hard_thresholding(w=w[1:(t-1),],
+x=pc[1:(t-1),],y=y[2:t],p_value = 0.01,newx = pc)
+```
+
+
+# Text Forecast function 
+
+This functions computes the $h$ step ahead forecast based on textual and/or economic data. 
+
+## Arguments
+
+ **x:** the input matrix x.
+
+ **y:** the response variable
+
+**h:** the forecast horizon
+
+ **intercept:** TRUE for include intercept in the forecast equation.
+
+## Value 
+
+The h step ahead forecast
+
+## Example
+
+``` {r Text Forecast Example, results = "hide"}
+library(TextForecast)
+set.seed(1)
+data("stock_data")
+y=as.matrix(stock_data[,2])
+w=as.matrix(stock_data[,3])
+data("optimal_factors_data")
+pc=as.matrix(optimal_factors)
+z=cbind(w,pc)
+fcsts=text_forecast(z,y,1,TRUE)
+print(fcsts)
+```
+
+# Text Nowcast function 
+
+This function computes the nowcast h=0. 
+
+## Arguments 
+
+ **x:** the input matrix x.
+
+ **y:** the response variable
+
+ **intercept:** TRUE for include intercept in the forecast equation.
+ 
+## Value 
+ 
+ the nowcast h=0 for the variable y.
+
+## Example 
+``` {r Text Nowcast Example, results = "hide"}
+ library(TextForecast)
+ set.seed(1)
+ data("stock_data")
+  data("news_data")
+ y=as.matrix(stock_data[,2])
+ w=as.matrix(stock_data[,3])
+ data("news_data")
+ data("optimal_factors_data")
+ pc=as.matrix(optimal_factors)
+ z=cbind(w,pc)
+ t=length(y)
+ ncsts=text_nowcast(z,y[1:(t-1)],TRUE)
+ print(ncsts)
+```
+
+# Top Terms function
+
+This function computes the highest k predictive words by using the highest absolute coefficient value. 
+
+
+
+## Arguments 
+
+**x:** the input matrix of terms to be selected.
+
+**w:** optional argument. the input matrix of structured data to not be selected.
+
+ **y:** the response variable
+ 
+ **alpha:** the glmnet alpha
+ 
+ **lambda:** the glmnet lambda
+ 
+ **k:** the k top terms
+ 
+ **wordcloud:** set TRUE to plot the wordcloud
+ 
+ **max.words:** the maximum number of words in the wordcloud
+ 
+ **scale:** the wordcloud size.
+ 
+ **rot.per:** wordcloud proportion 90 degree terms
+ 
+ **family:** glmnet family
+
+
+## Value 
+
+the top k terms and the corresponding wordcloud.
+
+## Example
+
+``` {r Top Terms Example, results = "hide"}
+library(TextForecast)
+ set.seed(1)
+ data("stock_data")
+ data("news_data")
+ y=as.matrix(stock_data[,2])
+ w=as.matrix(stock_data[,3])
+ data("news_data")
+ X=news_data[,2:ncol(news_data)]
+ x=as.matrix(X)
+ grid_alphas=seq(by=0.05,to=0.95,from=0.05)
+ cont_folds=TRUE
+ t=length(y)
+ optimal_alphas=optimal_alphas(x[1:(t-1),],w[1:(t-1),],
+ y[2:t],grid_alphas,TRUE,"gaussian")
+ top_trms<- top_terms(x[1:(t-1),],w[1:(t-1),],y[2:t],optimal_alphas[[1]],
+optimal_alphas[[2]],10,TRUE,10,c(5,0.15),.15,"gaussian")
+```
+
+# TV sentiment index function 
+
+## Arguments 
+
+**x:** A matrix of variables to be selected by shrinkrage methods.
+ 
+**w:** Optional Argument. A matrix of variables to be selected by shrinkrage methods.
+ 
+**y:** the response variable.
+ 
+**alpha:** the alpha required in glmnet.
+ 
+**lambda:** the lambda required in glmnet.
+ 
+**newx:** Matrix  that selection will applied. Useful for time series, when we need the observation at time t.
+ 
+**family:** the glmnet family.
+ 
+**k:** the highest positive and negative coefficients to be used.
+
+## Value 
+
+The time-varying sentiment index. The index is based on the k word/term counting and is computed using: tv_index=(pos-neg)/(pos+neg).
+
+## Example 
+
+``` {r TV sentiment index example, results = "hide", eval=FALSE}
+library(TextForecast)
+ set.seed(1)
+ data("stock_data")
+ data("news_data")
+ y=as.matrix(stock_data[,2])
+ w=as.matrix(stock_data[,3])
+ data("news_data")
+ X=news_data[,2:ncol(news_data)]
+ x=as.matrix(X)
+ grid_alphas=seq(by=0.05,to=0.95,from=0.05)
+ cont_folds=TRUE
+ t=length(y)
+ optimal_alphas=optimal_alphas(x[1:(t-1),],w[1:(t-1),],
+ y[2:t],grid_alphas,TRUE,"gaussian")
+  tv_index <- tv_sentiment_index(x[1:(t-1),],w[1:(t-1),],
+ y[2:t],optimal_alphas[[1]],optimal_alphas[[2]],x,"gaussian",2)
+ head(tv_index)
+```
+
+# References {-}

@@ -1,0 +1,15 @@
+get_collocations	get_collocations
+get_terms	get_terms
+get_words	get_words
+hard_thresholding	hard_thresholding
+news_data	news_data
+optimal_alphas	optimal_alphas
+optimal_number_factors	optimal_number_factors
+optimal_x	optimal_x
+stock_data	stock_data
+text_forecast	text_forecast
+text_nowcast	text_nowcast
+tf_idf	tf_idf
+top_terms	top_terms
+tv_dictionary	tv_dictionary
+tv_sentiment_index	tv_sentiment_index

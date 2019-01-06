@@ -3,8 +3,8 @@ Type: Package
 Title: Forecasting and Regression Analysis using textual data.  
 Version: 0.1.0
 Authors@R: c(
-    person("Luiz Renato", "Lima", email = "hadley@rstudio.com", role = "cre"),
-    person("Lucas", "Godeiro", email = "lucas.godeiro@hotmail.com", role = "aut"))
+    person("Luiz Renato", "Lima", email = "llima@utk.edu", role = "aut"),
+    person("Lucas", "Godeiro", email = "lucas.godeiro@hotmail.com", role = c("aut","cre")))
 Maintainer: Lucas Godeiro <lucas.godeiro@hotmail.com>
 Description: This package carries out forecasting and regression analysis using textual analysis and supervised machine learning techniques as LASSO, Elastic Net and Ridge Regression to select the most predictive words/terms. 
 License: GLP-3
