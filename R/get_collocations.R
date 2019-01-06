@@ -8,9 +8,6 @@
 #'
 #' @return a list containing  a matrix with the all collocations couting and another with a td-idf filtered collocations counting according to the ntrms.
 #' @import udpipe
-#' @import tseries
-#' @import stats
-#' @import vars
 #' @import tm
 #' @import SnowballC
 #' @import rpart

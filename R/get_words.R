@@ -78,14 +78,6 @@
 #' @param path_name the folders path where the subfolders with the dates are located.
 #'
 #' @return a list containing  a matrix with the all words couting and another with a td-idf filtered words counting according to the ntrms.
-#' @import tseries
-#' @import stats
-#' @import forecast
-#' @import vars
-#' @import tsDyn
-#' @import tseries
-#' @importFrom dplyr tbl_df
-#' @importFrom plyr rbind.fill
 #' @import tm
 #' @import wordcloud
 #' @import SnowballC
@@ -93,6 +85,8 @@
 #' @import tidyr
 #' @import text2vec
 #' @import tidytext
+#' @importFrom dplyr tbl_df
+#' @importFrom plyr rbind.fill
 #' @export
 #'
 #' @examples
