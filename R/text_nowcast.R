@@ -4,6 +4,8 @@
 #' @param y the response variable
 #' @param intercept TRUE for include intercept in the forecast equation.
 #'
+#' @importFrom stats lm
+#'
 #' @return the nowcast h=0 for the variable y.
 #' @export
 #'

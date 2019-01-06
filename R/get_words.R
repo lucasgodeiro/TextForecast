@@ -87,6 +87,7 @@
 #' @import tidytext
 #' @importFrom dplyr tbl_df
 #' @importFrom plyr rbind.fill
+#' @importFrom stats aggregate
 #' @export
 #'
 #' @examples

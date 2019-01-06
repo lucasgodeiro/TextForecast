@@ -3,6 +3,7 @@
 #' @param x a matrix x.
 #' @param kmax the maximum number of factors
 #'
+#' @importFrom stats prcomp
 #' @return a list with the optimal factors.
 #' @export
 #'

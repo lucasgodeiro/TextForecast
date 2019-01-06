@@ -37,8 +37,10 @@
 #' grid_alphas=seq(by=0.05,to=0.95,from=0.05)
 #' cont_folds=TRUE
 #' t=length(y)
-#' optimal_alphas=optimal_alphas(x[1:(t-1),],w[1:(t-1),],y[2:t],grid_alphas,TRUE,"gaussian")
-#' tv_index <- tv_sentiment_index(x[1:(t-1),],w[1:(t-1),],y[2:t],optimal_alphas[[1]],optimal_alphas[[2]],x,"gaussian",2)
+#' optimal_alphas=optimal_alphas(x[1:(t-1),],w[1:(t-1),],
+#' y[2:t],grid_alphas,TRUE,"gaussian")
+#' tv_index <- tv_sentiment_index(x[1:(t-1),],w[1:(t-1),],y[2:t],
+#' optimal_alphas[[1]],optimal_alphas[[2]],x,"gaussian",2)
 tv_sentiment_index <- function(x,w,y, alpha, lambda,newx,family,k){
 
   if(missing(family)){

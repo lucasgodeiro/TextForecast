@@ -6,6 +6,8 @@
 #' @param p_value the threshold p-value.
 #' @param newx matrix  that selection will applied. Useful for time series, when we need the observation at time t.
 #'
+#' @importFrom stats lm
+#'
 #' @return the variables less than p-value.
 #' @export
 #' @examples

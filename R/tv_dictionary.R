@@ -11,6 +11,7 @@
 #' @return X_star: a list with the coefficients and a matrix with the most predictive terms.
 #'
 #' @import glmnet
+#' @importFrom stats coef
 #' @export
 #'
 #' @examples

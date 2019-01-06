@@ -7,6 +7,7 @@ Authors@R: c(
     person("Lucas", "Godeiro", email = "lucas.godeiro@hotmail.com", role = c("aut","cre")))
 Maintainer: Lucas Godeiro <lucas.godeiro@hotmail.com>
 Description: This package carries out forecasting and regression analysis using textual analysis and supervised machine learning techniques as LASSO, Elastic Net and Ridge Regression to select the most predictive words/terms. 
+Depends: R (>= 3.1.0)
 License: GLP-3
 Encoding: UTF-8
 LazyData: true

@@ -5,6 +5,7 @@
 #' @param h the forecast horizon
 #' @param intercept TRUE for include intercept in the forecast equation.
 #'
+#' @importFrom stats lm
 #' @return The h step ahead forecast
 #' @export
 #'

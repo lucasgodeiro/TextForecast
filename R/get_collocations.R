@@ -17,6 +17,7 @@
 #' @import rpart
 #' @importFrom dplyr tibble
 #' @importFrom plyr rbind.fill
+#' @importFrom stats aggregate
 #' @export
 #'
 #' @examples
