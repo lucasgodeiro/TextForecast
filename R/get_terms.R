@@ -1,6 +1,6 @@
 #' Title
 #'
-#' @param corpus_dates a character vector indicating the subfolders where are located the texts.
+#' @param corpus_dates a character vector indicating the subfolders where the texts are located.
 #' @param ntrms_words maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.
 #' @param st set 0 to stem the words and 1 otherwise.
 #' @param path.name the folders path where the subfolders with the dates are located.

@@ -13,7 +13,6 @@
 #' @import forecast
 #' @import vars
 #' @import tsDyn
-#' @import pdftools
 #' @import quantreg
 #' @import tm
 #' @import wordcloud

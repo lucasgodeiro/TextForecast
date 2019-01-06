@@ -8,7 +8,7 @@ get_terms(corpus_dates, ntrms_words, st, path.name, ntrms_collocation,
   ngrams_number, min_freq)
 }
 \arguments{
-\item{corpus_dates}{a character vector indicating the subfolders where are located the texts.}
+\item{corpus_dates}{a character vector indicating the subfolders where the texts are located.}
 
 \item{ntrms_words}{maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.}
 

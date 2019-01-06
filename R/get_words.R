@@ -84,7 +84,6 @@
 #' @import vars
 #' @import tsDyn
 #' @import tseries
-#' @import pdftools
 #' @importFrom dplyr tbl_df
 #' @importFrom plyr rbind.fill
 #' @import tm
