@@ -27,8 +27,10 @@
 #' grid_alphas=seq(by=0.05,to=0.95,from=0.05)
 #' cont_folds=TRUE
 #' t=length(y)
-#' optimal_alphas=optimal_alphas(x[1:(t-1),],w[1:(t-1),],y[2:t],grid_alphas,TRUE,"gaussian")
-#' x_star=tv_dictionary(x=x[1:(t-1),],w=w[1:(t-1),],y=y[2:t],alpha=optimal_alphas[1],lambda=optimal_alphas[2],newx=x,family="gaussian")
+#' optimal_alphas=optimal_alphas(x[1:(t-1),],w[1:(t-1),],
+#' y[2:t],grid_alphas,TRUE,"gaussian")
+#' x_star=tv_dictionary(x=x[1:(t-1),],w=w[1:(t-1),],y=y[2:t],
+#' alpha=optimal_alphas[1],lambda=optimal_alphas[2],newx=x,family="gaussian")
 #' }
 
 
