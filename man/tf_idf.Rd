@@ -18,4 +18,5 @@ tf-idf function
 \examples{
 data("news_data")
 X=as.matrix(news_data[,2:ncol(news_data)])
+tf_idf_terms = tf_idf(X)
 }

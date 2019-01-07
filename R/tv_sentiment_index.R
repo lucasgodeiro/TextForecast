@@ -14,7 +14,7 @@
 #' @import tidytext
 #' @import forcats
 #' @import tidytext
-#' @importFrom tibble data_frame
+#' @importFrom dplyr tibble
 #' @importFrom dplyr filter
 #' @importFrom dplyr group_by
 #' @importFrom dplyr ungroup
@@ -141,7 +141,7 @@ tv_sentiment_index <- function(x,w,y, alpha, lambda,newx,family,k){
 
 
   names_co=colnames(as.data.frame(x))
-  co_df=tibble::data_frame(term=names_co, estimate=as.vector(co))
+  co_df=dplyr::tibble(term=names_co, estimate=as.vector(co))
 
   coefs <- co_df
 

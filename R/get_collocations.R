@@ -15,7 +15,7 @@
 #' @import text2vec
 #' @import class
 #' @import rpart
-#' @importFrom dplyr tibble
+#' @importFrom dplyr tbl_df
 #' @importFrom plyr rbind.fill
 #' @importFrom stats aggregate
 #' @export
