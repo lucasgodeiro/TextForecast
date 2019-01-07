@@ -22,22 +22,17 @@ Imports:
     tidytext,
     tm,
     tsDyn,
-    tseries,
-    vars,
     wordcloud,
     dplyr,
     plyr,
     udpipe,
     class,
     lars,
-    lsa,
-    quantreg,
     tau,
     RColorBrewer,
     forcats,
     ggplot2,
-    glmnet,
-    tibble
+    glmnet
 URL: https://github.com/lucasgodeiro/TextForecast
 BugReports: https://github.com/lucasgodeiro/TextForecast/issues
 Suggests: 
