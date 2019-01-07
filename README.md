@@ -1,7 +1,5 @@
 
-[![Travis build status](https://travis-ci.com/lucasgodeiro/TextForecast.svg?branch=master)](https://travis-ci.com/lucasgodeiro/TextForecast)
-
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/lucasgodeiro/TextForecast?branch=master&svg=true)](https://ci.appveyor.com/project/lucasgodeiro/TextForecast)
+[![Travis build status](https://travis-ci.com/lucasgodeiro/TextForecast.svg?branch=master)](https://travis-ci.com/lucasgodeiro/TextForecast) [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/lucasgodeiro/TextForecast?branch=master&svg=true)](https://ci.appveyor.com/project/lucasgodeiro/TextForecast) [![Coverage Status](https://img.shields.io/codecov/c/github/lucasgodeiro/TextForecast/master.svg)](https://codecov.io/github/lucasgodeiro/TextForecast?branch=master)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 TextForecast Package

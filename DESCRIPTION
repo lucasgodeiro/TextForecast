@@ -12,7 +12,7 @@ License: GLP-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
-Imports: 
+Imports:
     SnowballC,
     forecast,
     rpart,
@@ -35,7 +35,8 @@ Imports:
     glmnet
 URL: https://github.com/lucasgodeiro/TextForecast
 BugReports: https://github.com/lucasgodeiro/TextForecast/issues
-Suggests: 
+Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr
