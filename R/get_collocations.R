@@ -5,6 +5,7 @@
 #' @param ntrms maximum numbers of collocations  that will be filtered by tf-idf. We rank the collocations by tf-idf in a decreasing order. Then, after we select the words with the ntrms highest tf-idf.
 #' @param ngrams_number integer indicating the size of the collocations. Defaults to 2, indicating to compute bigrams. If set to 3, will find collocations of bigrams and trigrams.
 #' @param min_freq integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.
+#' @param language the texts language. Default is english.
 #'
 #' @return a list containing  a matrix with the all collocations couting and another with a td-idf filtered collocations counting according to the ntrms.
 #' @import udpipe
@@ -31,14 +32,17 @@
 #' ntrms=500,ngrams_number=3,min_freq=10)
 #' }
 
-get_collocations <- function(corpus_dates,path_name,ntrms,ngrams_number,min_freq) {
+get_collocations <- function(corpus_dates,path_name,ntrms,ngrams_number,min_freq,language) {
 
 
+ if(missing(language)){
+   language="english"
+   }
 
   qtr <- corpus_dates
   options(stringAsFactors = FALSE)
   pathname=path_name
-  ud_model <- udpipe_download_model(language = "english")
+  ud_model <- udpipe_download_model(language = language)
   ud_model <- udpipe_load_model(ud_model$file_model)
 
 

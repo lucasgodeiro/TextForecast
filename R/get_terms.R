@@ -7,6 +7,7 @@
 #' @param ntrms_collocation maximum numbers of collocations  that will be filtered by tf-idf. We rank the collocations by tf-idf in a decreasing order. Then, after we select the words with the ntrms highest tf-idf.
 #' @param ngrams_number integer indicating the size of the collocations. Defaults to 2, indicating to compute bigrams. If set to 3, will find collocations of bigrams and trigrams.
 #' @param min_freq integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.
+#' @param language the texts language. Default is english.
 #'
 #' @return a list containing  a matrix with the all collocations and words couting and another with a td-idf filtered collocations and words counting according to the ntrms.
 #' @export
@@ -22,11 +23,15 @@
 #' ntrms_words=500,ngrams_number=3,st=0,ntrms_collocation=500,min_freq=10)
 #' }
 
-get_terms <- function(corpus_dates,ntrms_words,st,path.name,ntrms_collocation,ngrams_number,min_freq){
+get_terms <- function(corpus_dates,ntrms_words,st,path.name,ntrms_collocation,ngrams_number,min_freq,language){
+
+  if(missing(language)){
+    language="english"
+  }
 
 
   z_wrd=get_words(corpus_dates=corpus_dates,ntrms=ntrms_words,st=st,path_name=path.name)
-  z_coll=get_collocations(corpus_dates=corpus_dates,path_name=path.name,ntrms=ntrms_collocation,ngrams_number=ngrams_number,min_freq = min_freq)
+  z_coll=get_collocations(corpus_dates=corpus_dates,path_name=path.name,ntrms=ntrms_collocation,ngrams_number=ngrams_number,min_freq = min_freq,language=language)
 
   z_full=cbind(z_wrd[[1]],z_coll[[1]])
   z_full=as.matrix(z_full)

@@ -5,7 +5,7 @@
 \title{Title}
 \usage{
 get_terms(corpus_dates, ntrms_words, st, path.name, ntrms_collocation,
-  ngrams_number, min_freq)
+  ngrams_number, min_freq, language)
 }
 \arguments{
 \item{corpus_dates}{a character vector indicating the subfolders where the texts are located.}
@@ -21,6 +21,8 @@ get_terms(corpus_dates, ntrms_words, st, path.name, ntrms_collocation,
 \item{ngrams_number}{integer indicating the size of the collocations. Defaults to 2, indicating to compute bigrams. If set to 3, will find collocations of bigrams and trigrams.}
 
 \item{min_freq}{integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.}
+
+\item{language}{the texts language. Default is english.}
 }
 \value{
 a list containing  a matrix with the all collocations and words couting and another with a td-idf filtered collocations and words counting according to the ntrms.
