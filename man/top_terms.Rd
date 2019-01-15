@@ -37,6 +37,7 @@ the top k terms and the corresponding wordcloud.
 Top Terms Function
 }
 \examples{
+\dontrun{
 set.seed(1)
 data("stock_data")
 data("news_data")
@@ -53,5 +54,6 @@ y[2:t],grid_alphas,TRUE,"gaussian")
 top_trms<- top_terms(x[1:(t-1),],w[1:(t-1),],y[2:t],
 optimal_alphas[[1]], optimal_alphas[[2]],10,TRUE,
 10,c(2,0.3),.15,"gaussian")
+}
 
 }

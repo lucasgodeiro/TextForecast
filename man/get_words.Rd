@@ -4,7 +4,7 @@
 \alias{get_words}
 \title{get_words function}
 \usage{
-get_words(corpus_dates, ntrms, st, path_name)
+get_words(corpus_dates, ntrms, st, path_name, language)
 }
 \arguments{
 \item{corpus_dates}{A vector of characters indicating the subfolders where are located the texts.}
@@ -14,6 +14,8 @@ get_words(corpus_dates, ntrms, st, path_name)
 \item{st}{set 0 to stem the words and 1 otherwise.}
 
 \item{path_name}{the folders path where the subfolders with the dates are located.}
+
+\item{language}{The texts language.}
 }
 \value{
 a list containing  a matrix with the all words couting and another with a td-idf filtered words counting according to the ntrms.
@@ -28,6 +30,6 @@ end_year=2018
 path_name=system.file("news",package="TextForecast")
 qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),
 c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
-z_wrd=get_words(corpus_dates=qt[1:23],path_name=path_name,ntrms=500,st=0)
+z_wrd=get_words(corpus_dates=qt[1:2],path_name=path_name,ntrms=500,st=0)
 }
 }

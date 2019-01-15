@@ -28,12 +28,13 @@
 #' path_name=system.file("news",package="TextForecast")
 #' qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),
 #' c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
-#' z_coll=get_collocations(corpus_dates=qt[1:23],path_name=path_name,
+#' z_coll=get_collocations(corpus_dates=qt[1:2],path_name=path_name,
 #' ntrms=500,ngrams_number=3,min_freq=10)
 #' }
 
 get_collocations <- function(corpus_dates,path_name,ntrms,ngrams_number,min_freq,language) {
-
+ngram <-NULL
+freq <- NULL
 
  if(missing(language)){
    language="english"
@@ -61,7 +62,7 @@ get_collocations <- function(corpus_dates,path_name,ntrms,ngrams_number,min_freq
   Rpdf <- readPDF(control = list(text = "-layout"))
 
 
-  generateTDM <- function(cand,path) {
+  generateTDM <- function(cand,path,ngrams_number,min_freq) {
     s.dir <- sprintf("%s/%s",path,cand)
     s.cor <- Corpus(DirSource(directory=s.dir,encoding = "UTF-8"),readerControl=list(reader = Rpdf) )
     s.cor.cl <- cleancorpus(s.cor)
@@ -107,7 +108,7 @@ get_collocations <- function(corpus_dates,path_name,ntrms,ngrams_number,min_freq
 
 
 
-  tdm=lapply(qtr,generateTDM, path=pathname)
+  tdm=lapply(qtr,generateTDM, path=pathname,ngrams_number=ngrams_number,min_freq=min_freq)
 
 
 

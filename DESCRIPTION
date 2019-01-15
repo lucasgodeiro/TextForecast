@@ -1,6 +1,6 @@
 Package: TextForecast
 Type: Package
-Title: Forecasting and Regression Analysis using textual data.  
+Title: TextForecast Package  
 Version: 0.1.0
 Authors@R: c(
     person("Luiz Renato", "Lima", email = "llima@utk.edu", role = "aut"),
@@ -8,7 +8,7 @@ Authors@R: c(
 Maintainer: Lucas Godeiro <lucas.godeiro@hotmail.com>
 Description: This package carries out forecasting and regression analysis using textual analysis and supervised machine learning techniques as LASSO, Elastic Net and Ridge Regression to select the most predictive words/terms. 
 Depends: R (>= 3.1.0)
-License: GLP-3
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1

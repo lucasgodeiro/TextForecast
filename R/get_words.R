@@ -76,6 +76,7 @@
 #' @param ntrms maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.
 #' @param st set 0 to stem the words and 1 otherwise.
 #' @param path_name the folders path where the subfolders with the dates are located.
+#' @param language The texts language.
 #'
 #' @return a list containing  a matrix with the all words couting and another with a td-idf filtered words counting according to the ntrms.
 #' @import tm
@@ -97,11 +98,16 @@
 #' path_name=system.file("news",package="TextForecast")
 #' qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),
 #' c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
-#' z_wrd=get_words(corpus_dates=qt[1:23],path_name=path_name,ntrms=500,st=0)
+#' z_wrd=get_words(corpus_dates=qt[1:2],path_name=path_name,ntrms=500,st=0)
 #' }
 
-get_words <- function(corpus_dates,ntrms,st,path_name) {
+get_words <- function(corpus_dates,ntrms,st,path_name,language) {
+stop_words <- NULL
 
+
+if(missing(language)){
+  language = "english"
+  }
   qtr <- corpus_dates
   options(stringAsFactors = FALSE)
   pathname=path_name
@@ -114,8 +120,8 @@ get_words <- function(corpus_dates,ntrms,st,path_name) {
       corpus.tmp2 <- tm_map(corpus.tmp1,stripWhitespace)
       corpus.tmp3 <- tm_map(corpus.tmp2,removeNumbers)
       corpus.tmp4 <- tm_map(corpus.tmp3,removeWords,c(tidytext::stop_words$word))
-      corpus.tmp5 <- tm_map(corpus.tmp4,removeWords,stopwords("english"))
-      corpus.tmp6 <- tm_map(corpus.tmp5, stemDocument, language = "english")
+      corpus.tmp5 <- tm_map(corpus.tmp4,removeWords,stopwords(language))
+      corpus.tmp6 <- tm_map(corpus.tmp5, stemDocument, language = language)
       return(corpus.tmp6)
     }
   } else {

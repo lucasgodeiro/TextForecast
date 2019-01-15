@@ -19,7 +19,7 @@
 #' path_name=system.file("news",package="TextForecast")
 #' qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),
 #' c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
-#' z_terms=get_terms(corpus_dates=qt[1:23],path.name=path_name,
+#' z_terms=get_terms(corpus_dates=qt[1:2],path.name=path_name,
 #' ntrms_words=500,ngrams_number=3,st=0,ntrms_collocation=500,min_freq=10)
 #' }
 
@@ -30,7 +30,7 @@ get_terms <- function(corpus_dates,ntrms_words,st,path.name,ntrms_collocation,ng
   }
 
 
-  z_wrd=get_words(corpus_dates=corpus_dates,ntrms=ntrms_words,st=st,path_name=path.name)
+  z_wrd=get_words(corpus_dates=corpus_dates,ntrms=ntrms_words,st=st,path_name=path.name,language=language)
   z_coll=get_collocations(corpus_dates=corpus_dates,path_name=path.name,ntrms=ntrms_collocation,ngrams_number=ngrams_number,min_freq = min_freq,language=language)
 
   z_full=cbind(z_wrd[[1]],z_coll[[1]])
