@@ -86,6 +86,7 @@
 #' @import tidyr
 #' @import text2vec
 #' @import tidytext
+#' @import pdftools
 #' @importFrom dplyr tbl_df
 #' @importFrom plyr rbind.fill
 #' @importFrom stats aggregate
@@ -98,7 +99,7 @@
 #' path_name=system.file("news",package="TextForecast")
 #' qt=paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),
 #' c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
-#' z_wrd=get_words(corpus_dates=qt[1:2],path_name=path_name,ntrms=500,st=0)
+#' z_wrd=get_words(corpus_dates=qt[1:23],path_name=path_name,ntrms=500,st=0)
 #' }
 
 get_words <- function(corpus_dates,ntrms,st,path_name,language) {
