@@ -37,7 +37,7 @@ the top k terms and the corresponding wordcloud.
 Top Terms Function
 }
 \examples{
-\dontrun{
+\donttest{
 set.seed(1)
 data("stock_data")
 data("news_data")

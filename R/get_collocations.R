@@ -10,10 +10,10 @@
 #' @return a list containing  a matrix with the all collocations couting and another with a td-idf filtered collocations counting according to the ntrms.
 #' @import udpipe
 #' @import tm
+#' @import pdftools
 #' @import SnowballC
 #' @import rpart
 #' @import tidytext
-#' @import pdftools
 #' @import text2vec
 #' @import class
 #' @import rpart
@@ -23,7 +23,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' st_year=2017
 #' end_year=2018
 #' path_name=system.file("news",package="TextForecast")
@@ -32,6 +32,13 @@
 #' z_coll=get_collocations(corpus_dates=qt[1:23],path_name=path_name,
 #' ntrms=500,ngrams_number=3,min_freq=10)
 #' }
+#' path_name=system.file("news",package="TextForecast")
+#' days=c("2019-30-01","2019-31-01")
+#' z_coll=get_collocations(corpus_dates=days[1],path_name=path_name,
+#' ntrms=500,ngrams_number=3,min_freq=1)
+#'
+
+
 
 get_collocations <- function(corpus_dates,path_name,ntrms,ngrams_number,min_freq,language) {
 ngram <-NULL

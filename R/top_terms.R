@@ -22,7 +22,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' set.seed(1)
 #' data("stock_data")
 #' data("news_data")

@@ -93,7 +93,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' st_year=2017
 #' end_year=2018
 #' path_name=system.file("news",package="TextForecast")
@@ -101,6 +101,10 @@
 #' c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
 #' z_wrd=get_words(corpus_dates=qt[1:23],path_name=path_name,ntrms=500,st=0)
 #' }
+#' path_name=system.file("news",package="TextForecast")
+#' days=c("2019-31-01","2019-31-01")
+#' z_wrd=get_words(corpus_dates=days,path_name=path_name,ntrms=500,st=0)
+#'
 
 get_words <- function(corpus_dates,ntrms,st,path_name,language) {
 stop_words <- NULL
