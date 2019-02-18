@@ -7,7 +7,7 @@
 #' @param min_freq integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.
 #' @param language the texts language. Default is english.
 #'
-#' @return a list containing  a matrix with the all collocations couting and another with a td-idf filtered collocations counting according to the ntrms.
+#' @return a list containing  a matrix with the all collocations couting and another with a tf-idf filtered collocations counting according to the ntrms.
 #' @import udpipe
 #' @import tm
 #' @import pdftools

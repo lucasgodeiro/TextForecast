@@ -5,7 +5,7 @@
 #' @param y the response variable.
 #' @param alpha the alpha required in glmnet.
 #' @param lambda the lambda required in glmnet.
-#' @param newx Matrix  that selection will applied. Useful for time series, when we need the observation at time t.
+#' @param newx Matrix  that selection will be applied. Useful for time series, when we need the observation at time t.
 #' @param family the glmnet family.
 #' @param k the highest positive and negative coefficients to be used.
 #'

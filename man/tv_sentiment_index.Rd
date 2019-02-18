@@ -17,7 +17,7 @@ tv_sentiment_index(x, w, y, alpha, lambda, newx, family, k)
 
 \item{lambda}{the lambda required in glmnet.}
 
-\item{newx}{Matrix  that selection will applied. Useful for time series, when we need the observation at time t.}
+\item{newx}{Matrix  that selection will be applied. Useful for time series, when we need the observation at time t.}
 
 \item{family}{the glmnet family.}
 

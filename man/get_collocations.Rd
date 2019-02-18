@@ -21,7 +21,7 @@ get_collocations(corpus_dates, path_name, ntrms, ngrams_number, min_freq,
 \item{language}{the texts language. Default is english.}
 }
 \value{
-a list containing  a matrix with the all collocations couting and another with a td-idf filtered collocations counting according to the ntrms.
+a list containing  a matrix with the all collocations couting and another with a tf-idf filtered collocations counting according to the ntrms.
 }
 \description{
 get_collocations function

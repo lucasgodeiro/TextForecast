@@ -54,6 +54,7 @@ You can install the released version of TextForecast from github with:
 install.packages("devtools")
 library(devtools)
 devtools::install_github("lucasgodeiro/TextForecast")
+install.packages("TextForecast")
 ```
 
 
@@ -70,6 +71,8 @@ This function counts the  words of the texts in the  PDF format.
 **st:** set 0 to stem the words and 1 otherwise.
 
 **path_name:** the folders path where the subfolders with the dates are located.
+
+**language** the texts language. Default is english.
 
 ## Value 
 
@@ -107,6 +110,9 @@ This function counts the  collocations of the texts in the  PDF format. The PDF 
 **ngrams_number:** integer indicating the size of the collocations. Defaults to 2, indicating to compute bigrams. If set to 3, will find collocations of bigrams and trigrams.
 
 **min_freq:** integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.
+
+**language** the texts language. Default is english. 
+
 
 ## Value 
 
@@ -147,6 +153,9 @@ This function counts the  terms of the texts in the  PDF format.
 **ngrams_number:** integer indicating the size of the collocations. Defaults to 2, indicating to compute bigrams. If set to 3, will find collocations of bigrams and trigrams.
 
 **min_freq:** integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.
+
+**language** the texts language. Default is english.
+
 
 ##Value 
 a list containing  a matrix with the all collocations and words couting and another with a td-idf filtered collocations and words counting according to the ntrms.
@@ -505,6 +514,55 @@ library(TextForecast)
   tv_index <- tv_sentiment_index(x[1:(t-1),],w[1:(t-1),],
  y[2:t],optimal_alphas[[1]],optimal_alphas[[2]],x,"gaussian",2)
  head(tv_index)
+```
+
+
+# TV sentiment index function using all positive and negative coefficients. 
+
+Unlike the TV sentiment index functions, this function uses all positive and negative coefficiens to compute the index. 
+
+## Arguments 
+
+**x:** A matrix of variables to be selected by shrinkrage methods.
+ 
+**w:** Optional Argument. A matrix of variables to be selected by shrinkrage methods.
+ 
+**y:** the response variable.
+ 
+**alpha:** the alpha required in glmnet.
+ 
+**lambda:** the lambda required in glmnet.
+ 
+**newx:** Matrix  that selection will applied. Useful for time series, when we need the observation at time t.
+ 
+**family:** the glmnet family.
+
+**k_mov_avg:** The moving average order.
+ 
+**type_mov_avg:** The type of moving average. See \link[pracma]{movavg}.
+
+## Value 
+
+A list with the net, postive and negative sentiment index. The net time-varying sentiment index. The index is based on the word/term counting and is computed using: tv_index=(pos-neg)/(pos+neg). The postive sentiment index is computed using: tv_index_pos=pos/(pos+neg) and the negative tv_index_neg=neg/(pos+neg).
+
+## Example
+
+```{r TV sentiment index all coefs example} 
+ set.seed(1)
+ data("stock_data")
+ data("news_data")
+ y=as.matrix(stock_data[,2])
+ w=as.matrix(stock_data[,3])
+ data("news_data")
+ X=news_data[,2:ncol(news_data)]
+ x=as.matrix(X)
+ grid_alphas=0.15
+ cont_folds=TRUE
+ t=length(y)
+ optimal_alphas=optimal_alphas(x=x[1:(t-1),],
+                               y=y[2:t],grid_alphas=grid_alphas,cont_folds=TRUE,family="gaussian")
+ tv_idx=tv_sentiment_index_all_coefs(x=x[1:(t-1),],y=y[2:t],alpha = optimal_alphas[1],lambda = optimal_alphas[2],newx=x,
+                                  scaled = TRUE,k_mov_avg = 4,type_mov_avg = "s")
 ```
 
 # References {-}

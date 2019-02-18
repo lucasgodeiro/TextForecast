@@ -1,11 +1,11 @@
 Package: TextForecast
 Type: Package
 Title: Regression Analysis and Forecasting Using Textual Data from a Time-Varying Dictionary  
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person("Luiz Renato", "Lima", email = "llima@utk.edu", role = "aut"),
     person("Lucas", "Godeiro", email = "lucas.godeiro@hotmail.com", role = c("aut","cre")))
-Description: Provides functionalities based on the paper "Time Varying Dictionary and the Predictive Power of FED Minutes" (Lima, 2018) <doi:10.2139/ssrn.3312483>. It Selects the Most Predictive Terms, that We Call Time-Varying Dictionary using Unsupervised Machine Learning Techniques as LASSO and Elastic Net.     
+Description: Provides functionalities based on the paper "Time Varying Dictionary and the Predictive Power of FED Minutes" (Lima, 2018) <doi:10.2139/ssrn.3312483>. It selects the most predictive terms, that we call time-varying dictionary using supervised machine learning techniques as lasso and elastic net.     
 Depends: R (>= 3.1.0)
 License: GPL-3
 Encoding: UTF-8
@@ -34,7 +34,8 @@ Imports:
     glmnet,
     pdftools,
     parallel,
-    doParallel
+    doParallel,
+    pracma
 URL: https://github.com/lucasgodeiro/TextForecast
 BugReports: https://github.com/lucasgodeiro/TextForecast/issues
 Suggests:
