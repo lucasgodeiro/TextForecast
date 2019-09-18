@@ -13,6 +13,7 @@ r:
   - 3.4
   - release
   - 3.5
+  - 3.6
 
 
 after_success:
