@@ -1,7 +1,7 @@
 Package: TextForecast
 Type: Package
 Title: Regression Analysis and Forecasting Using Textual Data from a Time-Varying Dictionary  
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
     person("Luiz Renato", "Lima", email = "llima@utk.edu", role = "aut"),
     person("Lucas", "Godeiro", email = "lucas.godeiro@hotmail.com", role = c("aut","cre")))
@@ -12,30 +12,24 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Imports:
-    SnowballC,
     forecast,
-    rpart,
     stats,
-    text2vec,
     tidyr,
     tidytext,
     tm,
-    tsDyn,
     wordcloud,
     dplyr,
     plyr,
     udpipe,
-    class,
-    lars,
-    tau,
     RColorBrewer,
-    forcats,
     ggplot2,
     glmnet,
     pdftools,
     parallel,
     doParallel,
-    pracma
+    pracma,
+    forcats,
+    Matrix
 URL: https://github.com/lucasgodeiro/TextForecast
 BugReports: https://github.com/lucasgodeiro/TextForecast/issues
 Suggests:

@@ -1,4 +1,4 @@
-#' Title
+#' get_terms function
 #'
 #' @param corpus_dates a character vector indicating the subfolders where the texts are located.
 #' @param ntrms_words maximum numbers of words  that will be filtered by tf-idf. We rank the word by tf-idf in a decreasing order. Then, we select the words with the ntrms highest tf-idf.
@@ -9,7 +9,7 @@
 #' @param min_freq integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.
 #' @param language the texts language. Default is english.
 #'
-#' @return a list containing  a matrix with the all collocations and words couting and another with a td-idf filtered collocations and words counting according to the ntrms.
+#' @return a list containing  a sparse matrix with the all collocations and words couting and another with a tf-idf filtered collocations and words counting according to the ntrms.
 #' @export
 #'
 #' @examples
@@ -40,11 +40,11 @@ get_terms <- function(corpus_dates,ntrms_words,st,path.name,ntrms_collocation,ng
   z_wrd=get_words(corpus_dates=corpus_dates,ntrms=ntrms_words,st=st,path_name=path.name,language=language)
   z_coll=get_collocations(corpus_dates=corpus_dates,path_name=path.name,ntrms=ntrms_collocation,ngrams_number=ngrams_number,min_freq = min_freq,language=language)
 
-  z_full=cbind(z_wrd[[1]],z_coll[[1]])
-  z_full=as.matrix(z_full)
-  z_tf=cbind(z_wrd[[2]],z_coll[[2]])
-  z_tf=as.matrix(z_tf)
-  results = list(z_full,z_tf)
+  z_full <- cbind(z_wrd[[1]],z_coll[[1]])
+  #z_full <- as.matrix(z_full)
+  z_tf <- cbind(z_wrd[[2]],z_coll[[2]])
+  #z_tf <- as.matrix(z_tf)
+  results <- list(z_full,z_tf)
   return(results)
 }
 

@@ -18,7 +18,7 @@ get_words(corpus_dates, ntrms, st, path_name, language)
 \item{language}{The texts language.}
 }
 \value{
-a list containing  a matrix with the all words couting and another with a td-idf filtered words counting according to the ntrms.
+a list containing  a sparse matrix with the all words couting and another with a td-idf filtered words counting according to the ntrms.
 }
 \description{
 get_words function

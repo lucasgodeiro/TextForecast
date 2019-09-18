@@ -30,6 +30,7 @@ The time-varying sentiment index. The index is based on the word/term counting a
 tv sentiment index function
 }
 \examples{
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(1)
 data("stock_data")
 data("news_data")
@@ -38,7 +39,7 @@ w=as.matrix(stock_data[,3])
 data("news_data")
 X=news_data[,2:ncol(news_data)]
 x=as.matrix(X)
-grid_alphas=0.25
+grid_alphas=0.05
 cont_folds=TRUE
 t=length(y)
 optimal_alphas=optimal_alphas(x[1:(t-1),],w[1:(t-1),],

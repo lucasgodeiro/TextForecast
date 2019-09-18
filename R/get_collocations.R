@@ -7,19 +7,15 @@
 #' @param min_freq integer indicating the frequency of how many times a collocation should at least occur in the data in order to be returned.
 #' @param language the texts language. Default is english.
 #'
-#' @return a list containing  a matrix with the all collocations couting and another with a tf-idf filtered collocations counting according to the ntrms.
+#' @return a list containing  a sparse matrix with the all collocations couting and another with a tf-idf filtered collocations counting according to the ntrms.
 #' @import udpipe
 #' @import tm
 #' @import pdftools
-#' @import SnowballC
-#' @import rpart
 #' @import tidytext
-#' @import text2vec
-#' @import class
-#' @import rpart
 #' @importFrom dplyr tbl_df
 #' @importFrom plyr rbind.fill
 #' @importFrom stats aggregate
+#' @importFrom Matrix Matrix
 #' @export
 #'
 #' @examples
@@ -96,8 +92,8 @@ freq <- NULL
     s.tdm_m=base::as.matrix(s.tdm)
     s.tdm_sum=apply(s.tdm_m,1,FUN = sum)
     s.tdm.sum_rk=sort(s.tdm_sum,decreasing = TRUE)
-    if(length(s.tdm_sum)>50){
-      s=s.tdm.sum_rk[50]
+    if(length(s.tdm_sum)>150){
+      s=s.tdm.sum_rk[150]
     } else {
       s=0
     }
@@ -162,15 +158,19 @@ freq <- NULL
 
 
   if(ncol(data_words)>ntrms) {
-    m_data=tfidfsum1(data_words)
-    m_data_srt=sort(m_data,decreasing=TRUE)
-    meanfilter=m_data_srt[ntrms]
+    m_data <- tfidfsum1(data_words)
+    m_data_srt <- sort(m_data,decreasing=TRUE)
+    meanfilter <- m_data_srt[ntrms]
     II=m_data>=meanfilter
-    data_words1=as.matrix(data_words[,II])
+    data_words1 <- as.matrix(data_words[,II])
   } else {
-    data_words1=as.matrix(data_words)
+    data_words1 <- as.matrix(data_words)
   }
-  data_lst = list(data_words,data_words1)
+
+  data_words <-  Matrix::Matrix(data_words, sparse = TRUE)
+  data_words1 <-  Matrix::Matrix(data_words1, sparse = TRUE)
+  data_lst <- list(data_words,data_words1)
+
   return(data_lst)
 
 

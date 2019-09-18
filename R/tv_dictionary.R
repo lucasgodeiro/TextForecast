@@ -8,10 +8,11 @@
 #' @param newx Matrix  that selection will applied. Useful for time series, when we need the observation at time t.
 #' @param family the glmnet family.
 #'
-#' @return X_star: a list with the coefficients and a matrix with the most predictive terms.
+#' @return X_star: a list with the coefficients and a sparse matrix with the most predictive terms.
 #'
 #' @import glmnet
 #' @importFrom stats coef
+#' @importFrom Matrix Matrix
 #' @export
 #'
 #' @examples
@@ -95,8 +96,9 @@ tv_dictionary <-function(x,w,y, alpha, lambda,newx,family) {
 
 
   }
-  coef_est=coef(eq)
-  sx=as.matrix(subset(newx,select=II2))
-  results=list(sx,coef_est)
+  coef_est <- coef(eq)
+  sx <-  as.matrix(subset(newx,select=II2))
+  sx <-  Matrix::Matrix(sx, sparse = TRUE)
+  results <- list(sx,coef_est)
   return(results)
 }

@@ -22,7 +22,7 @@ tv_dictionary(x, w, y, alpha, lambda, newx, family)
 \item{family}{the glmnet family.}
 }
 \value{
-X_star: a list with the coefficients and a matrix with the most predictive terms.
+X_star: a list with the coefficients and a sparse matrix with the most predictive terms.
 }
 \description{
 tv dictionary function

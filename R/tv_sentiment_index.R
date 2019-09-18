@@ -13,7 +13,6 @@
 #' @import ggplot2
 #' @import tidytext
 #' @import forcats
-#' @import tidytext
 #' @importFrom dplyr tibble
 #' @importFrom dplyr filter
 #' @importFrom dplyr group_by
@@ -26,6 +25,7 @@
 #'
 #'
 #' @examples
+#' suppressWarnings(RNGversion("3.5.0"))
 #' set.seed(1)
 #' data("stock_data")
 #' data("news_data")
@@ -34,7 +34,7 @@
 #' data("news_data")
 #' X=news_data[,2:ncol(news_data)]
 #' x=as.matrix(X)
-#' grid_alphas=0.25
+#' grid_alphas=0.05
 #' cont_folds=TRUE
 #' t=length(y)
 #' optimal_alphas=optimal_alphas(x[1:(t-1),],w[1:(t-1),],
